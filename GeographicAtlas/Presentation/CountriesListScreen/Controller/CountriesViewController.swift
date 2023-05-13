@@ -9,21 +9,18 @@ import UIKit
 
 class CountriesViewController: UIViewController {
     
-    let network = NetworkTask()
+    var rootView: CountriesRootView {
+        return self.view as! CountriesRootView
+    }
+    
+    override func loadView() {
+        super.loadView()
+        self.view = CountriesRootView()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        
-        network.getCountry(ccaTwo: "ES", completion: { result in
-            switch result {
-            case .success(let response):
-                print(response)
-            case .failure(let error):
-                print(error)
-            }
-        })
-        
+        rootView.setup()
     }
 
 }

@@ -23,6 +23,8 @@
 		FA9AE29A2A0F6B23007A7060 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AE2992A0F6B23007A7060 /* Constants.swift */; };
 		FA9AE29E2A0F6E25007A7060 /* CountriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AE29D2A0F6E25007A7060 /* CountriesViewModel.swift */; };
 		FA9AE2A12A0F6E42007A7060 /* CountriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AE2A02A0F6E42007A7060 /* CountriesModel.swift */; };
+		FA9AE2A52A0FA906007A7060 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FA9AE2A42A0FA906007A7060 /* SnapKit */; };
+		FA9AE2B02A0FBC3A007A7060 /* CountriesRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AE2AF2A0FBC3A007A7060 /* CountriesRootView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,7 @@
 		FA9AE2992A0F6B23007A7060 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FA9AE29D2A0F6E25007A7060 /* CountriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesViewModel.swift; sourceTree = "<group>"; };
 		FA9AE2A02A0F6E42007A7060 /* CountriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesModel.swift; sourceTree = "<group>"; };
+		FA9AE2AF2A0FBC3A007A7060 /* CountriesRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesRootView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +54,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA9AE2982A0F691F007A7060 /* Alamofire in Frameworks */,
+				FA9AE2A52A0FA906007A7060 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +135,7 @@
 				FA9AE2852A0F540E007A7060 /* Controller */,
 				FA9AE2882A0F5431007A7060 /* Coordinator */,
 				FA9AE29F2A0F6E2D007A7060 /* ViewModel */,
+				FA9AE2B12A0FBC40007A7060 /* View */,
 			);
 			path = CountriesListScreen;
 			sourceTree = "<group>";
@@ -192,6 +197,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		FA9AE2B12A0FBC40007A7060 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA9AE2AF2A0FBC3A007A7060 /* CountriesRootView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -210,6 +223,7 @@
 			name = GeographicAtlas;
 			packageProductDependencies = (
 				FA9AE2972A0F691F007A7060 /* Alamofire */,
+				FA9AE2A42A0FA906007A7060 /* SnapKit */,
 			);
 			productName = GeographicAtlas;
 			productReference = FA9AE2602A0EA00A007A7060 /* GeographicAtlas.app */;
@@ -241,6 +255,7 @@
 			mainGroup = FA9AE2572A0EA00A007A7060;
 			packageReferences = (
 				FA9AE2962A0F691F007A7060 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				FA9AE2A32A0FA906007A7060 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = FA9AE2612A0EA00A007A7060 /* Products */;
 			projectDirPath = "";
@@ -271,6 +286,7 @@
 				FA9AE27A2A0F4E16007A7060 /* Coordinator.swift in Sources */,
 				FA9AE27E2A0F4FA0007A7060 /* NetworkTask.swift in Sources */,
 				FA9AE2952A0F5FD7007A7060 /* CountriesList.swift in Sources */,
+				FA9AE2B02A0FBC3A007A7060 /* CountriesRootView.swift in Sources */,
 				FA9AE2782A0F4DF1007A7060 /* AppCoordinator.swift in Sources */,
 				FA9AE2682A0EA00A007A7060 /* CountriesViewController.swift in Sources */,
 				FA9AE28E2A0F572A007A7060 /* Country.swift in Sources */,
@@ -498,6 +514,14 @@
 				kind = branch;
 			};
 		};
+		FA9AE2A32A0FA906007A7060 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -505,6 +529,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FA9AE2962A0F691F007A7060 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		FA9AE2A42A0FA906007A7060 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA9AE2A32A0FA906007A7060 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

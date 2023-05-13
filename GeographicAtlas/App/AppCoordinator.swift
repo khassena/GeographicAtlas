@@ -14,7 +14,12 @@ final class AppCoordinator: Coordinator {
     let window: UIWindow?
     let rootNavigationController: UINavigationController = {
         let navigationController = UINavigationController()
-//        navigationController.navigationBar.barTintColor =
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        appearance.backgroundColor = Constants.Color.backgroundGray
+        navigationController.navigationBar.standardAppearance = appearance
+        navigationController.navigationBar.scrollEdgeAppearance = appearance
+        navigationController.navigationBar.compactAppearance = appearance
         return navigationController
     }()
     
@@ -33,7 +38,6 @@ final class AppCoordinator: Coordinator {
         guard let window = window else {
             return
         }
-        
         window.rootViewController = rootNavigationController
         window.makeKeyAndVisible()
         

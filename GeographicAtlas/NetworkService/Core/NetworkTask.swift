@@ -9,8 +9,8 @@ import UIKit
 import Alamofire
 
 protocol NetworkTaskProtocol {
-//    func getAllCountries(completion: @escaping (Result<CountriesListResponse, Error>) -> Void)
-//    func getCountry(ccaTwo: String, completion: @escaping (Result<CountryResponse, Error>) -> Void)
+    func getAllCountries(completion: @escaping (Result<[CountriesList], Error>) -> Void)
+    func getCountry(ccaTwo: String, completion: @escaping (Result<[Country], Error>) -> Void)
 }
 
 struct NetworkRoutable: URLRequestConvertible {

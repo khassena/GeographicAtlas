@@ -10,46 +10,46 @@ import Foundation
 struct CountriesList: Decodable {
     let name: Name
     let ccaTwo: String
-    let currencies: Currencies?
+    let currency: Currency?
     let capital: [String]?
     let population: Int
     let area: Double
-    let flags: Flags
-    let continents: [String]
+    let flag: Flag
+    let continent: [String]
     
     struct Name: Decodable {
         let common: String
     }
     
-    struct Currencies: Codable {
+    struct Currency: Codable {
         let name: String?
         let symbol: String?
     }
     
-    struct Flags: Decodable {
+    struct Flag: Decodable {
         let png: String
     }
     
     enum CodingKeys: String, CodingKey {
         case name
         case ccaTwo = "cca2"
-        case currencies
+        case currency = "currencies"
         case capital
         case population
         case area
-        case flags
-        case continents
+        case flag = "flags"
+        case continent = "continents"
     }
     
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         name = try values.decode(Name.self, forKey: .name)
         ccaTwo = try values.decode(String.self, forKey: .ccaTwo)
-        currencies = (try? values.decode(Currencies.self, forKey: .currencies)) ?? nil
+        currency = (try? values.decode(Currency.self, forKey: .currency)) ?? nil
         capital = (try? values.decode([String].self, forKey: .capital)) ?? []
         population = try values.decode(Int.self, forKey: .population)
         area = try values.decode(Double.self, forKey: .area)
-        flags = try values.decode(Flags.self, forKey: .flags)
-        continents = try values.decode([String].self, forKey: .continents)
+        flag = try values.decode(Flag.self, forKey: .flag)
+        continent = try values.decode([String].self, forKey: .continent)
     }
 }
