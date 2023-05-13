@@ -16,6 +16,13 @@
 		FA9AE27E2A0F4FA0007A7060 /* NetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AE27D2A0F4FA0007A7060 /* NetworkTask.swift */; };
 		FA9AE2812A0F5045007A7060 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AE2802A0F5045007A7060 /* Repository.swift */; };
 		FA9AE2872A0F542D007A7060 /* CountriesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AE2862A0F542D007A7060 /* CountriesCoordinator.swift */; };
+		FA9AE28B2A0F5709007A7060 /* CountriesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AE28A2A0F5709007A7060 /* CountriesData.swift */; };
+		FA9AE28E2A0F572A007A7060 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AE28D2A0F572A007A7060 /* Country.swift */; };
+		FA9AE2952A0F5FD7007A7060 /* CountriesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AE2942A0F5FD7007A7060 /* CountriesList.swift */; };
+		FA9AE2982A0F691F007A7060 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FA9AE2972A0F691F007A7060 /* Alamofire */; };
+		FA9AE29A2A0F6B23007A7060 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AE2992A0F6B23007A7060 /* Constants.swift */; };
+		FA9AE29E2A0F6E25007A7060 /* CountriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AE29D2A0F6E25007A7060 /* CountriesViewModel.swift */; };
+		FA9AE2A12A0F6E42007A7060 /* CountriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9AE2A02A0F6E42007A7060 /* CountriesModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +37,12 @@
 		FA9AE27D2A0F4FA0007A7060 /* NetworkTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTask.swift; sourceTree = "<group>"; };
 		FA9AE2802A0F5045007A7060 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		FA9AE2862A0F542D007A7060 /* CountriesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesCoordinator.swift; sourceTree = "<group>"; };
+		FA9AE28A2A0F5709007A7060 /* CountriesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesData.swift; sourceTree = "<group>"; };
+		FA9AE28D2A0F572A007A7060 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		FA9AE2942A0F5FD7007A7060 /* CountriesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesList.swift; sourceTree = "<group>"; };
+		FA9AE2992A0F6B23007A7060 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		FA9AE29D2A0F6E25007A7060 /* CountriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesViewModel.swift; sourceTree = "<group>"; };
+		FA9AE2A02A0F6E42007A7060 /* CountriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA9AE2982A0F691F007A7060 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +84,7 @@
 				FA9AE26C2A0EA00C007A7060 /* Assets.xcassets */,
 				FA9AE26E2A0EA00C007A7060 /* LaunchScreen.storyboard */,
 				FA9AE2712A0EA00C007A7060 /* Info.plist */,
+				FA9AE2992A0F6B23007A7060 /* Constants.swift */,
 			);
 			path = GeographicAtlas;
 			sourceTree = "<group>";
@@ -94,7 +109,9 @@
 		FA9AE27F2A0F4FA6007A7060 /* NetworkService */ = {
 			isa = PBXGroup;
 			children = (
-				FA9AE27D2A0F4FA0007A7060 /* NetworkTask.swift */,
+				FA9AE28C2A0F570D007A7060 /* Model */,
+				FA9AE28F2A0F572F007A7060 /* DTO */,
+				FA9AE2892A0F56E9007A7060 /* Core */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -110,8 +127,10 @@
 		FA9AE2842A0F53D9007A7060 /* CountriesListScreen */ = {
 			isa = PBXGroup;
 			children = (
+				FA9AE2A22A0F6E46007A7060 /* Model */,
 				FA9AE2852A0F540E007A7060 /* Controller */,
 				FA9AE2882A0F5431007A7060 /* Coordinator */,
+				FA9AE29F2A0F6E2D007A7060 /* ViewModel */,
 			);
 			path = CountriesListScreen;
 			sourceTree = "<group>";
@@ -132,6 +151,47 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
+		FA9AE2892A0F56E9007A7060 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				FA9AE27D2A0F4FA0007A7060 /* NetworkTask.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		FA9AE28C2A0F570D007A7060 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FA9AE28A2A0F5709007A7060 /* CountriesData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FA9AE28F2A0F572F007A7060 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				FA9AE28D2A0F572A007A7060 /* Country.swift */,
+				FA9AE2942A0F5FD7007A7060 /* CountriesList.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		FA9AE29F2A0F6E2D007A7060 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FA9AE29D2A0F6E25007A7060 /* CountriesViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FA9AE2A22A0F6E46007A7060 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FA9AE2A02A0F6E42007A7060 /* CountriesModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -148,6 +208,9 @@
 			dependencies = (
 			);
 			name = GeographicAtlas;
+			packageProductDependencies = (
+				FA9AE2972A0F691F007A7060 /* Alamofire */,
+			);
 			productName = GeographicAtlas;
 			productReference = FA9AE2602A0EA00A007A7060 /* GeographicAtlas.app */;
 			productType = "com.apple.product-type.application";
@@ -176,6 +239,9 @@
 				Base,
 			);
 			mainGroup = FA9AE2572A0EA00A007A7060;
+			packageReferences = (
+				FA9AE2962A0F691F007A7060 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = FA9AE2612A0EA00A007A7060 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -204,10 +270,16 @@
 			files = (
 				FA9AE27A2A0F4E16007A7060 /* Coordinator.swift in Sources */,
 				FA9AE27E2A0F4FA0007A7060 /* NetworkTask.swift in Sources */,
+				FA9AE2952A0F5FD7007A7060 /* CountriesList.swift in Sources */,
 				FA9AE2782A0F4DF1007A7060 /* AppCoordinator.swift in Sources */,
 				FA9AE2682A0EA00A007A7060 /* CountriesViewController.swift in Sources */,
+				FA9AE28E2A0F572A007A7060 /* Country.swift in Sources */,
+				FA9AE29A2A0F6B23007A7060 /* Constants.swift in Sources */,
+				FA9AE29E2A0F6E25007A7060 /* CountriesViewModel.swift in Sources */,
+				FA9AE28B2A0F5709007A7060 /* CountriesData.swift in Sources */,
 				FA9AE2872A0F542D007A7060 /* CountriesCoordinator.swift in Sources */,
 				FA9AE2642A0EA00A007A7060 /* AppDelegate.swift in Sources */,
+				FA9AE2A12A0F6E42007A7060 /* CountriesModel.swift in Sources */,
 				FA9AE2812A0F5045007A7060 /* Repository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,6 +488,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FA9AE2962A0F691F007A7060 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FA9AE2972A0F691F007A7060 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA9AE2962A0F691F007A7060 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FA9AE2582A0EA00A007A7060 /* Project object */;
 }
