@@ -37,5 +37,7 @@ final class AppCoordinator: Coordinator {
         window.rootViewController = rootNavigationController
         window.makeKeyAndVisible()
         
+        let countriesCoordinator = CountriesCoordinator(rootNavigationController: rootNavigationController, repository: repository)
+        countriesCoordinator.start()
     }
 }
