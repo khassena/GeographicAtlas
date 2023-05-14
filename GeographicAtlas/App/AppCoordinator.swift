@@ -14,12 +14,14 @@ final class AppCoordinator: Coordinator {
     let window: UIWindow?
     let rootNavigationController: UINavigationController = {
         let navigationController = UINavigationController()
+        
         let appearance = UINavigationBarAppearance()
         appearance.configureWithDefaultBackground()
         appearance.backgroundColor = Constants.Color.backgroundGray
         navigationController.navigationBar.standardAppearance = appearance
         navigationController.navigationBar.scrollEdgeAppearance = appearance
         navigationController.navigationBar.compactAppearance = appearance
+        
         return navigationController
     }()
     
