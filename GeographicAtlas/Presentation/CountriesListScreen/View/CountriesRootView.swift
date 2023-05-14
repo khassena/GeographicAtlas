@@ -31,7 +31,8 @@ class CountriesRootView: UIView {
         
         countriesTableView.snp.makeConstraints { make in
             make.top.equalTo(separatorbottomLine.snp.bottom)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
     }
 

@@ -11,7 +11,7 @@ import SnapKit
 class CountriesTableViewCell: UITableViewCell {
     
     // MARK: - Properties
-    static let cellId = "ListTableViewCell"
+    static let cellId = "CountriesTableViewCell"
     
     private let flagImageView = makeFlagImage()
     private let countryNameLabel = makeTitleLabel()
@@ -45,6 +45,11 @@ class CountriesTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 6, left: 16, bottom: 6, right: 16))
+    }
 
 }
 
@@ -55,6 +60,7 @@ private extension CountriesTableViewCell {
     static func makeFlagImage() -> UIImageView {
         let flagImageView = UIImageView()
         
+        flagImageView.image = UIImage(named: "dog12")
         flagImageView.layer.masksToBounds = true
         flagImageView.layer.cornerRadius = Constants.Countries.imageCornerRadius
         
@@ -63,7 +69,7 @@ private extension CountriesTableViewCell {
     
     static func makeTitleLabel() -> UILabel {
         let titleLabel = UILabel()
-        
+        titleLabel.text = "Kazakhstan"
         titleLabel.font = UIFont.semiboldStandard
         titleLabel.textColor = Constants.Color.boldBlack
         
@@ -72,7 +78,7 @@ private extension CountriesTableViewCell {
     
     static func makeSubTitleLabel() -> UILabel {
         let subtitleLabel = UILabel()
-        
+        subtitleLabel.text = "Astana"
         subtitleLabel.font = UIFont.regularThin
         subtitleLabel.textColor = Constants.Color.gray
         
@@ -82,6 +88,8 @@ private extension CountriesTableViewCell {
     static func makeArrowImage() -> UIImageView {
         let arrowImageView = UIImageView()
         
+        arrowImageView.image = UIImage(named: "arrow")
+        arrowImageView.contentMode = .scaleAspectFit
         arrowImageView.layer.masksToBounds = true
         
         return arrowImageView
@@ -133,18 +141,25 @@ private extension CountriesTableViewCell {
 private extension CountriesTableViewCell {
     
     func setupView() {
-        addSubview(generalStackView)
+        contentView.addSubview(generalStackView)
         expandedStackView.setCustomSpacing(Constants.StackView.largeSpacing, after: currenciesStackView)
         expandedStackView.setCustomSpacing(Constants.StackView.hugeSpacing, after: learnMoreButton)
         expandedStackView.isHidden = true
+        countryTitleStackView.alignment = .leading
+        contentView.backgroundColor = UIColor(red: 0.969, green: 0.973, blue: 0.976, alpha: 1)
+        contentView.layer.cornerRadius = 12
         
         flagImageView.snp.makeConstraints { make in
-            make.width.equalToSuperview().dividedBy(Constants.Image.widthDivision)
+            make.width.equalTo(contentView).dividedBy(Constants.Image.flagWidthDiv)
         }
         
         generalStackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(Constants.StackView.standardSpacing)
+            make.edges.equalTo(contentView).inset(Constants.StackView.standardSpacing)
         }
+    }
+    
+    func setValues() {
+        
     }
     
 }
@@ -166,6 +181,8 @@ private extension Constants {
     }
     
     struct Image {
-        static let widthDivision = CGFloat(3.9)
+        static let flagWidthDiv = CGFloat(4.18)
+        static let arrowWidthDiv = CGFloat(25.4)
+        static let arrowHeightDiv = CGFloat(1.8)
     }
 }

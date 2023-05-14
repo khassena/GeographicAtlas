@@ -25,6 +25,6 @@ struct Constants {
     }
     
     struct TableView {
-        static let heightDivision = CGFloat(4.76)
+        static let heightDivision = CGFloat(4.46)
     }
 }

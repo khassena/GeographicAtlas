@@ -30,7 +30,7 @@ class CountriesViewController: UIViewController {
 
 extension CountriesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return 5
     }
 }
 
@@ -48,7 +48,7 @@ extension CountriesViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let height = tableView.frame.width * Constants.TableView.heightDivision
+        let height = tableView.frame.width / Constants.TableView.heightDivision
         return height
     }
     
@@ -60,5 +60,6 @@ private extension CountriesViewController {
     func setTableView() {
         rootView.countriesTableView.delegate = self
         rootView.countriesTableView.dataSource = self
+        rootView.countriesTableView.register(CountriesTableViewCell.self, forCellReuseIdentifier: CountriesTableViewCell.cellId)
     }
 }

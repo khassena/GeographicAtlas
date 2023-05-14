@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct CountriesModel {
+    let title: String
+    let subTitle: String
+}
