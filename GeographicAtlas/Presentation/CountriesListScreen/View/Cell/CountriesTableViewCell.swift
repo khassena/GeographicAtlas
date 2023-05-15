@@ -13,6 +13,9 @@ class CountriesTableViewCell: UITableViewCell {
     // MARK: - Properties
     static let cellId = "CountriesTableViewCell"
     
+    private var expandedConstraint: Constraint!
+    private var collapsedConstraint: Constraint!
+    
     private let flagImageView = makeFlagImage()
     private let countryNameLabel = makeTitleLabel()
     private let capitalCityLabel = makeSubTitleLabel()
@@ -34,12 +37,12 @@ class CountriesTableViewCell: UITableViewCell {
     private lazy var generalStackView = CountriesTableViewCell.makeStackView([collapsedStackView, expandedStackView], .vertical, Constants.StackView.standardSpacing)
     
     
-    
     // MARK: - Initialization
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupView()
+        setupViews()
+        setupViewPosition()
     }
     
     required init?(coder: NSCoder) {
@@ -48,9 +51,27 @@ class CountriesTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 6, left: 16, bottom: 6, right: 16))
+        contentView.frame = contentView.frame.inset(by: Constants.ContentView.insets)
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            changeAppearance()
+        }
     }
 
+    func changeAppearance() {
+        collapsedConstraint.isActive = !isSelected
+        expandedConstraint.isActive = isSelected
+    }
+    
+    func changeArrowSide() {
+        UIView.animate(withDuration: 0.3) {
+            let upsideDown = CGAffineTransform(rotationAngle: .pi * -0.999 )
+            self.arrowImageView.transform = self.isSelected ? upsideDown : .identity
+        }
+    }
+    
 }
 
 // MARK: - Creating SubViews
@@ -63,6 +84,7 @@ private extension CountriesTableViewCell {
         flagImageView.image = UIImage(named: "dog12")
         flagImageView.layer.masksToBounds = true
         flagImageView.layer.cornerRadius = Constants.Countries.imageCornerRadius
+        flagImageView.layer.masksToBounds = true
         
         return flagImageView
     }
@@ -88,7 +110,7 @@ private extension CountriesTableViewCell {
     static func makeArrowImage() -> UIImageView {
         let arrowImageView = UIImageView()
         
-        arrowImageView.image = UIImage(named: "arrow")
+        arrowImageView.image = UIImage(named: "arrowDown")
         arrowImageView.contentMode = .scaleAspectFit
         arrowImageView.layer.masksToBounds = true
         
@@ -100,6 +122,8 @@ private extension CountriesTableViewCell {
         
         propertyLabel.font = UIFont.regularMedium
         propertyLabel.textColor = Constants.Color.gray
+        propertyLabel.text = "property"
+        propertyLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         return propertyLabel
     }
@@ -109,6 +133,8 @@ private extension CountriesTableViewCell {
         
         propertyValueLabel.font = UIFont.regularMedium
         propertyValueLabel.textColor = Constants.Color.black
+        propertyValueLabel.text = "property"
+        propertyValueLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         
         return propertyValueLabel
     }
@@ -120,6 +146,7 @@ private extension CountriesTableViewCell {
         learnMoreButton.setTitleColor(Constants.Color.blueButton, for: .normal)
         learnMoreButton.backgroundColor = .clear
         learnMoreButton.setTitle(Constants.Text.buttonText, for: .normal)
+        learnMoreButton.titleLabel?.text = "button"
         
         return learnMoreButton
     }
@@ -140,25 +167,46 @@ private extension CountriesTableViewCell {
 
 private extension CountriesTableViewCell {
     
-    func setupView() {
-        contentView.addSubview(generalStackView)
+    func setupViews() {
+        countryTitleStackView.alignment = .leading
+        collapsedStackView.alignment = .center
+        contentView.backgroundColor = Constants.Color.backgroundGray
+        contentView.layer.cornerRadius = Constants.ContentView.cornerRadius
         expandedStackView.setCustomSpacing(Constants.StackView.largeSpacing, after: currenciesStackView)
         expandedStackView.setCustomSpacing(Constants.StackView.hugeSpacing, after: learnMoreButton)
-        expandedStackView.isHidden = true
-        countryTitleStackView.alignment = .leading
-        contentView.backgroundColor = UIColor(red: 0.969, green: 0.973, blue: 0.976, alpha: 1)
-        contentView.layer.cornerRadius = 12
+        
+        collapsedStackView.layoutMargins.right = Constants.Image.arrowTrailing
+        collapsedStackView.isLayoutMarginsRelativeArrangement = true
+        contentView.clipsToBounds = true
+    }
+    
+    func setupViewPosition() {
+        
+        [collapsedStackView, expandedStackView].forEach { contentView.addSubview($0)}
         
         flagImageView.snp.makeConstraints { make in
             make.width.equalTo(contentView).dividedBy(Constants.Image.flagWidthDiv)
         }
         
-        generalStackView.snp.makeConstraints { make in
-            make.edges.equalTo(contentView).inset(Constants.StackView.standardSpacing)
+        collapsedStackView.snp.makeConstraints { make in
+            make.top.left.right.equalTo(contentView).inset(Constants.StackView.standardSpacing)
+            make.height.equalTo(collapsedStackView.snp.width).dividedBy(Constants.StackView.collapsedHeightDiv)
         }
-    }
-    
-    func setValues() {
+        
+        collapsedStackView.snp.prepareConstraints { make in
+            collapsedConstraint = make.bottom.equalTo(contentView.snp.bottom).constraint
+            collapsedConstraint.layoutConstraints.first?.priority = .defaultLow
+        }
+        
+        expandedStackView.snp.makeConstraints { make in
+            make.top.equalTo(collapsedStackView.snp.bottom).inset(Constants.StackView.expandedSpacing)
+            make.left.right.equalTo(contentView).inset(Constants.StackView.standardSpacing)
+        }
+        
+        expandedStackView.snp.prepareConstraints { make in
+            expandedConstraint = make.bottom.equalTo(contentView.snp.bottom).constraint
+            expandedConstraint.layoutConstraints.first?.priority = .defaultLow
+        }
         
     }
     
@@ -173,7 +221,9 @@ private extension Constants {
         static let mediumSpacing = CGFloat(8)
         static let standardSpacing = CGFloat(12)
         static let hugeSpacing = CGFloat(16)
-        static let largeSpacing = CGFloat(26)
+        static let largeSpacing = CGFloat(16)
+        static let collapsedHeightDiv = CGFloat(6.64)
+        static var expandedSpacing: CGFloat = -12
     }
     
     struct Text {
@@ -182,7 +232,12 @@ private extension Constants {
     
     struct Image {
         static let flagWidthDiv = CGFloat(4.18)
-        static let arrowWidthDiv = CGFloat(25.4)
-        static let arrowHeightDiv = CGFloat(1.8)
+        static let flagHeightDiv = CGFloat(1.7)
+        static let arrowTrailing = CGFloat(4.75)
+    }
+    
+    struct ContentView {
+        static let cornerRadius = CGFloat(12)
+        static let insets = UIEdgeInsets(top: 6, left: 16, bottom: 6, right: 16)
     }
 }

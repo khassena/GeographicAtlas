@@ -25,7 +25,9 @@ final class CountriesCoordinator: Coordinator {
     
     override func start() {
         
-        let countriesViewController = CountriesViewController()
+        let countriesViewModel = CountriesViewModel(repository: repository)
+        
+        let countriesViewController = CountriesViewController(viewModel: countriesViewModel)
         countriesViewController.title = "World countries"
         
         rootNavigationController.setViewControllers([countriesViewController], animated: false)
