@@ -20,6 +20,7 @@ class CountriesViewController: UIViewController {
         cell.isSelected = true
         return cell
     }()
+    private var countries: [CountriesListForCell]?
     
     // MARK: - Initialization
     
@@ -41,6 +42,7 @@ class CountriesViewController: UIViewController {
         super.viewDidLoad()
         rootView.setup()
         setTableView()
+        bindToViewModel()
         
     }
 
@@ -50,7 +52,7 @@ class CountriesViewController: UIViewController {
 
 extension CountriesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.countries?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -64,11 +66,11 @@ extension CountriesViewController: UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath) as? CountriesTableViewCell
         cell?.changeArrowSide()
         tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: Constants.TableView.animationDuration) {
             tableView.performBatchUpdates(nil)
         }
         DispatchQueue.main.async {
-            tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            tableView.scrollToRow(at: indexPath, at: .none, animated: true)
         }
     }
 }
@@ -79,8 +81,12 @@ extension CountriesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CountriesTableViewCell.cellId, for: indexPath) as? CountriesTableViewCell else { return UITableViewCell() }
-        cell.selectionStyle = .none
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CountriesTableViewCell.cellId, for: indexPath) as? CountriesTableViewCell,
+              let countriees = self.countries?[indexPath.row]
+               else { return UITableViewCell() }
+        
+        cell.configureCell(countriees)
+        
         
         return cell
     }
@@ -103,10 +109,18 @@ extension CountriesViewController: UITableViewDataSource {
 // MARK: - Private Methods
 
 private extension CountriesViewController {
+    
     func setTableView() {
         rootView.countriesTableView.delegate = self
         rootView.countriesTableView.dataSource = self
         rootView.countriesTableView.allowsMultipleSelection = true
         rootView.countriesTableView.register(CountriesTableViewCell.self, forCellReuseIdentifier: CountriesTableViewCell.cellId)
+    }
+    
+    func bindToViewModel() {
+        viewModel.didRecieveData = { countries in
+            self.countries = countries
+            self.rootView.countriesTableView.reloadData()
+        }
     }
 }

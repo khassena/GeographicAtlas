@@ -33,7 +33,7 @@ final class AppCoordinator: Coordinator {
     init(window: UIWindow) {
         self.window = window
         networkTask = NetworkTask()
-        repository = Repository()
+        repository = Repository(networkTask: networkTask)
     }
     
     override func start() {

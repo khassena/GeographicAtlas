@@ -11,9 +11,10 @@ protocol CountriesViewModelProtocol {
     
     init(repository: Repository)
     
-    var didSelectedCountry: ((SelectedModel) -> Void)? { get set }
+    var countries: [CountriesListForCell]? { get set }
+    var didRecieveData: (([CountriesListForCell]) -> Void)? { get set }
     
-    func countrySelected(_ model: SelectedModel)
+    func reloadData()
 }
 
 class CountriesViewModel: CountriesViewModelProtocol {
@@ -21,30 +22,49 @@ class CountriesViewModel: CountriesViewModelProtocol {
     // MARK: - Properties
     
     private let repository: Repository
-    private var selectedIndexPaths: [IndexPath] = []
+    var countries: [CountriesListForCell]?
+    
+    var didRecieveData: (([CountriesListForCell]) -> Void)?
     
     // MARK: - Initialization
     
     required init(repository: Repository) {
         self.repository = repository
+        DispatchQueue.main.async {
+            self.reloadData()
+        }
     }
-    
-    var didSelectedCountry: ((SelectedModel) -> Void)?
+
     
 }
 
 // MARK: - Public Methods
 
 extension CountriesViewModel {
-
-    func countrySelected(_ model: SelectedModel) {
-        var newModel: SelectedModel
-        switch model {
-        case .selected(let mod):
-            newModel = .unSelected(mod)
-        case .unSelected(let mod):
-            newModel = .selected(mod)
-        }
-        didSelectedCountry?(newModel)
+    
+    func reloadData() {
+        getDataFromNetwork()
     }
 }
+
+// MARK: - Private Methods
+
+private extension CountriesViewModel {
+    
+    func getDataFromNetwork() {
+        repository.networkTask?.getAllCountries(completion: { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let countriesList):
+                    self.countries = countriesList.compactMap {
+                        return self.repository.countriesListElementToCell($0)
+                    }
+                    self.didRecieveData?(self.countries ?? [])
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        })
+    }
+}
+

@@ -20,11 +20,11 @@ class CountriesTableViewCell: UITableViewCell {
     private let countryNameLabel = makeTitleLabel()
     private let capitalCityLabel = makeSubTitleLabel()
     private let arrowImageView = makeArrowImage()
-    private let populationLabel = makePropertyLabel()
+    private let populationLabel = makePropertyLabel(Constants.Property.population)
     private let populationValueLabel = makePropertyValueLabel()
-    private let areaLabel = makePropertyLabel()
+    private let areaLabel = makePropertyLabel(Constants.Property.area)
     private let areaValueLabel = makePropertyValueLabel()
-    private let currenciesLabel = makePropertyLabel()
+    private let currenciesLabel = makePropertyLabel(Constants.Property.currency)
     private let currenciesValueLabel = makePropertyValueLabel()
     private let learnMoreButton = makeLearnMoreButton()
     
@@ -59,19 +59,33 @@ class CountriesTableViewCell: UITableViewCell {
             changeAppearance()
         }
     }
+    
+}
 
+// MARK: - Public Methods
+
+extension CountriesTableViewCell {
+    
     func changeAppearance() {
         collapsedConstraint.isActive = !isSelected
         expandedConstraint.isActive = isSelected
     }
     
     func changeArrowSide() {
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: Constants.TableView.animationDuration) {
             let upsideDown = CGAffineTransform(rotationAngle: .pi * -0.999 )
             self.arrowImageView.transform = self.isSelected ? upsideDown : .identity
         }
     }
     
+    func configureCell(_ country: CountriesListForCell) {
+        countryNameLabel.text = country.countryName
+        capitalCityLabel.text = country.capitalCity
+        populationValueLabel.text = country.population
+        areaValueLabel.text = country.area
+        currenciesValueLabel.text = country.currency
+        
+    }
 }
 
 // MARK: - Creating SubViews
@@ -81,7 +95,6 @@ private extension CountriesTableViewCell {
     static func makeFlagImage() -> UIImageView {
         let flagImageView = UIImageView()
         
-        flagImageView.image = UIImage(named: "dog12")
         flagImageView.layer.masksToBounds = true
         flagImageView.layer.cornerRadius = Constants.Countries.imageCornerRadius
         flagImageView.layer.masksToBounds = true
@@ -91,7 +104,7 @@ private extension CountriesTableViewCell {
     
     static func makeTitleLabel() -> UILabel {
         let titleLabel = UILabel()
-        titleLabel.text = "Kazakhstan"
+        
         titleLabel.font = UIFont.semiboldStandard
         titleLabel.textColor = Constants.Color.boldBlack
         
@@ -100,7 +113,7 @@ private extension CountriesTableViewCell {
     
     static func makeSubTitleLabel() -> UILabel {
         let subtitleLabel = UILabel()
-        subtitleLabel.text = "Astana"
+        
         subtitleLabel.font = UIFont.regularThin
         subtitleLabel.textColor = Constants.Color.gray
         
@@ -117,12 +130,12 @@ private extension CountriesTableViewCell {
         return arrowImageView
     }
     
-    static func makePropertyLabel() -> UILabel {
+    static func makePropertyLabel(_ title: String) -> UILabel {
         let propertyLabel = UILabel()
         
+        propertyLabel.text = title
         propertyLabel.font = UIFont.regularMedium
         propertyLabel.textColor = Constants.Color.gray
-        propertyLabel.text = "property"
         propertyLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         return propertyLabel
@@ -133,7 +146,6 @@ private extension CountriesTableViewCell {
         
         propertyValueLabel.font = UIFont.regularMedium
         propertyValueLabel.textColor = Constants.Color.black
-        propertyValueLabel.text = "property"
         propertyValueLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         
         return propertyValueLabel
@@ -146,7 +158,6 @@ private extension CountriesTableViewCell {
         learnMoreButton.setTitleColor(Constants.Color.blueButton, for: .normal)
         learnMoreButton.backgroundColor = .clear
         learnMoreButton.setTitle(Constants.Text.buttonText, for: .normal)
-        learnMoreButton.titleLabel?.text = "button"
         
         return learnMoreButton
     }
@@ -168,6 +179,7 @@ private extension CountriesTableViewCell {
 private extension CountriesTableViewCell {
     
     func setupViews() {
+        selectionStyle = .none
         countryTitleStackView.alignment = .leading
         collapsedStackView.alignment = .center
         contentView.backgroundColor = Constants.Color.backgroundGray
@@ -223,7 +235,7 @@ private extension Constants {
         static let hugeSpacing = CGFloat(16)
         static let largeSpacing = CGFloat(16)
         static let collapsedHeightDiv = CGFloat(6.64)
-        static var expandedSpacing: CGFloat = -12
+        static var expandedSpacing: CGFloat = -14
     }
     
     struct Text {
@@ -239,5 +251,11 @@ private extension Constants {
     struct ContentView {
         static let cornerRadius = CGFloat(12)
         static let insets = UIEdgeInsets(top: 6, left: 16, bottom: 6, right: 16)
+    }
+    
+    struct Property {
+        static let population = "Population:"
+        static let area = "Area:"
+        static let currency = "Currencies:"
     }
 }

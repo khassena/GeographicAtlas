@@ -27,5 +27,6 @@ struct Constants {
     struct TableView {
         static let heightDivision = CGFloat(4.46428571)
         static let expandedMardins = CGFloat(24)
+        static let animationDuration = CGFloat(0.3)
     }
 }
