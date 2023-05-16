@@ -12,7 +12,8 @@ class FlagHeaderView: UIView {
 
     let flagImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "dog12")
+        imageView.layer.cornerRadius = 10
+        imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -35,6 +36,9 @@ class FlagHeaderView: UIView {
     private func setupPosition() {
         addSubview(flagImageView)
         
+        flagImageView.layer.cornerRadius = 10
+        flagImageView.clipsToBounds = true
+        flagImageView.contentMode = .scaleAspectFit
         
         flagImageView.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview().inset(16)

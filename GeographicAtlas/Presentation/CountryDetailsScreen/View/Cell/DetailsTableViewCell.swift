@@ -15,8 +15,14 @@ class DetailsTableViewCell: UITableViewCell {
     
     private let spacer = UIView()
     private let dotImageView = makeDotImage()
-     let propertyName = makeTitleLabel()
-     let propertyValue = makeSubTitleLabel()
+    private let propertyName = makeTitleLabel()
+    private let propertyValue = makeSubTitleLabel()
+//    private let capitalLabel = makeTitleLabel()
+//    private let capitalValueLabel = makeSubTitleLabel()
+//    private let coordinatesLabel = makeTitleLabel()
+//    private let coordinatesValueLabel = makeSubTitleLabel()
+//    private let populationLabel = makeTitleLabel()
+//    private let populationValueLabel = makeSubTitleLabel()
     private lazy var imageStackView = DetailsTableViewCell.makeStackView([spacer, dotImageView], .vertical, Constants.StackView.spacerSpacing)
     private lazy var titlesStackView = DetailsTableViewCell.makeStackView([propertyName, propertyValue], .vertical, Constants.StackView.titleSpacing)
     private lazy var generalStackView = DetailsTableViewCell.makeStackView([imageStackView, titlesStackView], .horizontal, Constants.StackView.generalSpacing)
@@ -42,8 +48,34 @@ class DetailsTableViewCell: UITableViewCell {
 
 // MARK: - Public Methods
 
-extension CountriesTableViewCell {
-
+extension DetailsTableViewCell {
+    func configureCell(_ value: String, index: Int) {
+        switch index {
+        case 0:
+            propertyName.text = "Region:"
+            propertyValue.text = value
+        case 1:
+            propertyName.text = "Capital:"
+            propertyValue.text = value
+        case 2:
+            propertyName.text = "Capital coordinates:"
+            propertyValue.text = value
+        case 3:
+            propertyName.text = "Population:"
+            propertyValue.text = value
+        case 4:
+            propertyName.text = "Area:"
+            propertyValue.text = value
+        case 5:
+            propertyName.text = "Currency:"
+            propertyValue.text = value
+        case 6:
+            propertyName.text = "Timezones:"
+            propertyValue.text = value
+        default:
+            print("error")
+        }
+    }
 }
 
 // MARK: - Creating SubViews
@@ -62,7 +94,7 @@ private extension DetailsTableViewCell {
     
     static func makeTitleLabel() -> UILabel {
         let titleLabel = UILabel()
-        titleLabel.text = "Amanzhan"
+        
         titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.font = UIFont.regularMedium
         titleLabel.textColor = Constants.Color.gray
@@ -72,7 +104,7 @@ private extension DetailsTableViewCell {
     
     static func makeSubTitleLabel() -> UILabel {
         let subtitleLabel = UILabel()
-        subtitleLabel.text = "Khassen"
+        
         subtitleLabel.font = UIFont.regularLarge
         subtitleLabel.textColor = Constants.Color.boldBlack
         subtitleLabel.numberOfLines = 2

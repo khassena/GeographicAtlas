@@ -10,22 +10,17 @@ import Foundation
 struct Country: Decodable {
     let name: Name
     let ccaTwo: String
-    let subRegion: [String]?
+    let subRegion: String?
     let coordinates: [Double]
     let timeZones: [String]
-    let currency: Currency?
+    let currency: [String: Currency]?
     let capital: [String]?
     let population: Int
-    let area: Int
+    let area: Double
     let flag: Flag
     
     struct Name: Decodable {
         let common: String
-    }
-
-    struct Currency: Codable {
-        let name: String?
-        let symbol: String?
     }
 
     struct Flag: Decodable {
@@ -49,13 +44,13 @@ struct Country: Decodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         name = try values.decode(Name.self, forKey: .name)
         ccaTwo = try values.decode(String.self, forKey: .ccaTwo)
-        subRegion = (try? values.decode([String].self, forKey: .subRegion)) ?? []
+        subRegion = (try? values.decode(String.self, forKey: .subRegion)) ?? "nil"
         coordinates = try values.decode([Double].self, forKey: .coordinates)
         timeZones = try values.decode([String].self, forKey: .timeZones)
-        currency = (try? values.decode(Currency.self, forKey: .currency)) ?? nil
+        currency = (try? values.decode([String: Currency].self, forKey: .currency)) ?? nil
         capital = (try? values.decode([String].self, forKey: .capital)) ?? []
         population = try values.decode(Int.self, forKey: .population)
-        area = try values.decode(Int.self, forKey: .area)
+        area = try values.decode(Double.self, forKey: .area)
         flag = try values.decode(Flag.self, forKey: .flag)
     }
 }

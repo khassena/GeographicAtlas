@@ -13,6 +13,7 @@ protocol RepositoryProtocol {
     var networkTask: NetworkTaskProtocol? { get set }
     func countriesListDataToSections(_ countriesList: [CountriesList]) -> [[CountriesListData]]?
     func countriesListElementToCell(_ countriesList: CountriesList) -> CountriesListData
+    func countryDetailDataToTransfer(_ countryDetail: [Country]) -> [String]
 }
 
 class Repository: RepositoryProtocol {
@@ -69,8 +70,20 @@ extension Repository {
         return [europe, asia, africa, oceania, southAmerica, northAmerica, antarctica]
     }
     
+    func countryDetailDataToTransfer(_ countryDetail: [Country]) -> [String] {
+        
+        guard let country = countryDetail.first else { return [""] }
+        
+        let data = countryDetailToCell(country)
+        return [data.subRegion, data.capitalCity, data.capitalCoordinates, data.population, data.area, data.currency, data.timezone, data.countryName, data.flagUrl]
+    }
+    
     func countriesListElementToCell(_ countriesList: CountriesList) -> CountriesListData {
         convertCountriesListElementToCell(countriesList)
+    }
+    
+    func countryDetailToCell(_ country: Country) -> DetailsModel {
+        convertCountryDetailToCell(country)
     }
     
 }
@@ -95,6 +108,28 @@ private extension Repository {
             continent: countriesList.continent,
             ccaTwoCode: countriesList.ccaTwo
         )
+    }
+    
+    func convertCountryDetailToCell(_ country: Country) -> DetailsModel {
+        
+        let populationString = convertPopulationToString(country.population)
+        let areaString = convertAreaToString(country.area)
+        let currencyString = convertCurrencyToString(country.currency)
+        let coordinates = convertCoordinatesToString(country.coordinates)
+        let timeZones = calculateAverageGMT(timeZones: country.timeZones)
+        
+        return DetailsModel(
+            countryName: country.name.common,
+            capitalCity: country.capital?.first ?? "nil",
+            subRegion: country.subRegion ?? "nil",
+            flagUrl: country.flag.png,
+            population: populationString,
+            capitalCoordinates: coordinates,
+            timezone: timeZones,
+            area: areaString,
+            currency: currencyString
+        )
+        
     }
     
 //    func distributeContinentsToSections(_ countriesListData: CountriesListData) -> [[CountriesListData]]? {
@@ -166,7 +201,7 @@ private extension Repository {
         }
     }
     
-    func convertCurrencyToString(_ currency: [String: CountriesList.Currency]?) -> String {
+    func convertCurrencyToString(_ currency: [String: Currency]?) -> String {
         
         guard let code = currency?.keys.first,
               let name = currency?[currency?.keys.first ?? ""]?.name,
@@ -175,5 +210,47 @@ private extension Repository {
         }
 
         return "\(name) (\(symbol)) (\(code))"
+    }
+    
+    func convertCoordinatesToString(_ coordinates: [Double]) -> String {
+        guard let latitude = coordinates.first,
+              let longitude = coordinates.last else { return "nil" }
+        
+        let latitudeDegrees = Int(latitude)
+        let latitudeMinutes = Int((latitude - Double(latitudeDegrees)) * 60)
+//        let latitudeSeconds = Int(((latitude - Double(latitudeDegrees)) * 60 - Double(latitudeMinutes)) * 60)
+        
+        let longitudeDegrees = Int(longitude)
+        let longitudeMinutes = Int((longitude - Double(longitudeDegrees)) * 60)
+//        let longitudeSeconds = Int(((longitude - Double(longitudeDegrees)) * 60 - Double(longitudeMinutes)) * 60)
+        
+        let latitudeString = String(format: "%d°%02d′", latitudeDegrees, latitudeMinutes)
+        let longitudeString = String(format: "%d°%02d′", longitudeDegrees, longitudeMinutes)
+        
+        return "\(latitudeString), \(longitudeString)"
+    }
+    
+    func calculateAverageGMT(timeZones: [String?]) -> String {
+        
+        var totalOffsetMinutes = 0
+        var totalOffsetsCount = 0
+        
+        for timeZone in timeZones {
+            let components = timeZone?.components(separatedBy: ":")
+            guard components?.count == 2,
+                  let hoursString = components?[1].components(separatedBy: "-").last,
+                  let hours = Int(hoursString) else {
+                return "nil"
+            }
+            
+            let offsetMinutes = hours * 60
+            totalOffsetMinutes += offsetMinutes
+            totalOffsetsCount += 1
+        }
+        
+        let averageOffsetMinutes = totalOffsetMinutes / totalOffsetsCount
+        let averageOffsetHours = averageOffsetMinutes / 60
+        
+        return "GMT+\(averageOffsetHours)"
     }
 }

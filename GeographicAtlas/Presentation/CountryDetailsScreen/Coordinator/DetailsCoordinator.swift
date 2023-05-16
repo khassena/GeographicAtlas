@@ -31,7 +31,7 @@ final class DetailsCoordinator: Coordinator {
     
     override func start() {
         
-        let detailsViewModel = DetailsViewModel(repository: repository)
+        let detailsViewModel = DetailsViewModel(repository: repository, ccaTwoCode: ccaTwoCode)
         
         let detailsViewController = DetailsViewController(viewModel: detailsViewModel)
         
@@ -56,7 +56,6 @@ extension DetailsCoordinator: ViewModelCoordinatorDelegate {
         
         detailsCoordinator.delegate = self.delegate
         self.delegate?.addChildCoordinator(detailsCoordinator)
-        rootNavigationController.navigationBar.prefersLargeTitles = false
         detailsCoordinator.start()
     }
 }

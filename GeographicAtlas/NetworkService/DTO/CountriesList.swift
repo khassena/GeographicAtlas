@@ -7,6 +7,11 @@
 
 import Foundation
 
+protocol CurrencyProtocol: Decodable {
+    var name: String? { get }
+    var symbol: String? { get }
+}
+
 struct CountriesList: Decodable {
     let name: Name
     let ccaTwo: String
@@ -16,19 +21,6 @@ struct CountriesList: Decodable {
     let area: Double
     let flag: Flag
     let continent: [Continents]
-    
-    struct Name: Decodable {
-        let common: String
-    }
-    
-    struct Currency: Codable {
-        let name: String?
-        let symbol: String?
-    }
-    
-    struct Flag: Decodable {
-        let png: String
-    }
     
     enum Continents: String, Decodable, CaseIterable {
         case europe = "Europe"
@@ -63,5 +55,4 @@ struct CountriesList: Decodable {
         continent = try values.decode([Continents].self, forKey: .continent)
     }
 }
-
 

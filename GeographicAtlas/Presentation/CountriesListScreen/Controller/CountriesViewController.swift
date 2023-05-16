@@ -178,14 +178,14 @@ private extension CountriesViewController {
     }
     
     func bindToViewModel() {
-        viewModel.didRecieveData = { countries in
-            self.countries = countries
-            self.rootView.countriesTableView.reloadData()
+        viewModel.didRecieveData = { [weak self] countries in
+            self?.countries = countries
+            self?.rootView.countriesTableView.reloadData()
         }
         
-        viewModel.didRecieveImage = { image, indexPath in
+        viewModel.didRecieveImage = { [weak self]  image, indexPath in
             DispatchQueue.main.async {
-                let cell = self.rootView.countriesTableView.cellForRow(at: indexPath) as? CountriesTableViewCell
+                let cell = self?.rootView.countriesTableView.cellForRow(at: indexPath) as? CountriesTableViewCell
                 cell?.setImage(with: image)
                 
             }
