@@ -21,10 +21,6 @@ struct CountriesList: Decodable {
         let common: String
     }
     
-    struct Currencies: Decodable {
-        let currencyCode: Currency?
-    }
-    
     struct Currency: Codable {
         let name: String?
         let symbol: String?
@@ -67,3 +63,5 @@ struct CountriesList: Decodable {
         continent = try values.decode([Continents].self, forKey: .continent)
     }
 }
+
+

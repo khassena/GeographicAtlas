@@ -80,7 +80,7 @@ extension CountriesTableViewCell {
         }
     }
     
-    func configureCell(_ country: CountriesListForCell) {
+    func configureCell(_ country: CountriesListData) {
         
         countryNameLabel.text = country.countryName
         capitalCityLabel.text = country.capitalCity

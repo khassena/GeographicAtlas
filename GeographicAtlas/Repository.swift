@@ -10,8 +10,9 @@ import Foundation
 protocol RepositoryProtocol {
     
     init(networkTask: NetworkTask)
-
-    func countriesListElementToCell(_ countriesList: CountriesList) -> CountriesListForCell
+    
+    func countriesListDataToSections(_ countriesList: [CountriesList]) -> [[CountriesListData]]?
+    func countriesListElementToCell(_ countriesList: CountriesList) -> CountriesListData
 }
 
 class Repository: RepositoryProtocol {
@@ -30,7 +31,45 @@ class Repository: RepositoryProtocol {
 
 extension Repository {
     
-    func countriesListElementToCell(_ countriesList: CountriesList) -> CountriesListForCell {
+    func countriesListDataToSections(_ countriesList: [CountriesList]) -> [[CountriesListData]]? {
+        
+        var europe = [CountriesListData]()
+        var asia = [CountriesListData]()
+        var africa = [CountriesListData]()
+        var oceania = [CountriesListData]()
+        var southAmerica = [CountriesListData]()
+        var northAmerica = [CountriesListData]()
+        var antarctica = [CountriesListData]()
+        
+        countriesList.forEach { country in
+            let countriesListElement = countriesListElementToCell(country)
+            
+        
+            switch countriesListElement.continent.first {
+            case .europe:
+                 europe.append(countriesListElement)
+            case .asia:
+                asia.append(countriesListElement)
+            case .africa:
+                africa.append(countriesListElement)
+            case .oceania:
+                oceania.append(countriesListElement)
+            case .southAmerica:
+                southAmerica.append(countriesListElement)
+            case .antarctica:
+                antarctica.append(countriesListElement)
+            case .northAmerica:
+                northAmerica.append(countriesListElement)
+            case .none:
+                print("Error")
+            }
+            
+        }
+        
+        return [europe, asia, africa, oceania, southAmerica, northAmerica, antarctica]
+    }
+    
+    func countriesListElementToCell(_ countriesList: CountriesList) -> CountriesListData {
         convertCountriesListElementToCell(countriesList)
     }
     
@@ -40,13 +79,13 @@ extension Repository {
 
 private extension Repository {
     
-    func convertCountriesListElementToCell(_ countriesList: CountriesList) -> CountriesListForCell {
+    func convertCountriesListElementToCell(_ countriesList: CountriesList) -> CountriesListData {
         
         let populationString = convertPopulationToString(countriesList.population)
         let areaString = convertAreaToString(countriesList.area)
         let currencyString = convertCurrencyToString(countriesList.currency)
         
-        return CountriesListForCell(
+        return CountriesListData(
             countryName: countriesList.name.common,
             capitalCity: countriesList.capital?.first ?? "nil",
             flagUrl: countriesList.flag.png,
@@ -55,6 +94,37 @@ private extension Repository {
             currency: currencyString,
             continent: countriesList.continent
         )
+    }
+    
+    func distributeContinentsToSections(_ countriesListData: CountriesListData) -> [[CountriesListData]]? {
+        var europe = [CountriesListData]()
+        var asia = [CountriesListData]()
+        var africa = [CountriesListData]()
+        var oceania = [CountriesListData]()
+        var southAmerica = [CountriesListData]()
+        var northAmerica = [CountriesListData]()
+        var antarctica = [CountriesListData]()
+        
+        switch countriesListData.continent.first {
+        case .europe:
+             europe.append(countriesListData)
+        case .asia:
+            asia.append(countriesListData)
+        case .africa:
+            africa.append(countriesListData)
+        case .oceania:
+            oceania.append(countriesListData)
+        case .southAmerica:
+            southAmerica.append(countriesListData)
+        case .antarctica:
+            antarctica.append(countriesListData)
+        case .northAmerica:
+            northAmerica.append(countriesListData)
+        case .none:
+            print("Error")
+        }
+        
+        return [europe, asia, africa, oceania, southAmerica, northAmerica, antarctica]
     }
     
     func convertPopulationToString(_ population: Int) -> String {

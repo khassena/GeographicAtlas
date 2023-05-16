@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CountriesListForCell {
+struct CountriesListData: Equatable {
     let countryName: String
     let capitalCity: String
     let flagUrl: String

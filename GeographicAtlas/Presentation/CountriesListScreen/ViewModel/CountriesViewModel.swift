@@ -12,8 +12,8 @@ protocol CountriesViewModelProtocol {
     
     init(repository: Repository)
     
-    var countries: [CountriesListForCell]? { get set }
-    var didRecieveData: (([CountriesListForCell]) -> Void)? { get set }
+    var countries: [[CountriesListData]]? { get set }
+    var didRecieveData: (([[CountriesListData]]?) -> Void)? { get set }
     var didRecieveImage: ((UIImage, IndexPath) -> Void)? { get set }
     
     func reloadData()
@@ -25,9 +25,9 @@ class CountriesViewModel: CountriesViewModelProtocol {
     // MARK: - Properties
     
     private let repository: Repository
-    var countries: [CountriesListForCell]?
+    var countries: [[CountriesListData]]?
     
-    var didRecieveData: (([CountriesListForCell]) -> Void)?
+    var didRecieveData: (([[CountriesListData]]?) -> Void)?
     var didRecieveImage: ((UIImage, IndexPath) -> Void)?
     
     // MARK: - Initialization
@@ -64,10 +64,8 @@ private extension CountriesViewModel {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let countriesList):
-                    self.countries = countriesList.compactMap {
-                        return self.repository.countriesListElementToCell($0)
-                    }
-                    self.didRecieveData?(self.countries ?? [])
+                    self.countries = self.repository.countriesListDataToSections(countriesList)
+                    self.didRecieveData?(self.countries)
                 case .failure(let error):
                     print(error)
                 }

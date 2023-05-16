@@ -18,6 +18,7 @@ struct Constants {
         static let gray = UIColor(red: 0.533, green: 0.533, blue: 0.533, alpha: 1)
         static let black = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         static let blueButton = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1)
+        static let headerColor = UIColor(red: 0.672, green: 0.702, blue: 0.732, alpha: 1)
     }
     
     struct Countries {
@@ -37,4 +38,5 @@ struct Constants {
         static let thousand = CGFloat(1000)
         static let rotationNum = CGFloat(-0.999)
     }
+    
 }
