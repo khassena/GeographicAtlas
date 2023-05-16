@@ -29,4 +29,12 @@ struct Constants {
         static let expandedMardins = CGFloat(24)
         static let animationDuration = CGFloat(0.3)
     }
+    
+    struct Numbers {
+        static let millionCGFloat = CGFloat(1_000_000)
+        static let millionInt = Int(1000000)
+        static let three = Int(3)
+        static let thousand = CGFloat(1000)
+        static let rotationNum = CGFloat(-0.999)
+    }
 }

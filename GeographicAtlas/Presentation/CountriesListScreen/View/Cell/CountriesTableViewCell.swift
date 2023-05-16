@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+//import SDWebImage
 
 class CountriesTableViewCell: UITableViewCell {
     
@@ -16,6 +17,7 @@ class CountriesTableViewCell: UITableViewCell {
     private var expandedConstraint: Constraint!
     private var collapsedConstraint: Constraint!
     
+    private let spacer = UIView()
     private let flagImageView = makeFlagImage()
     private let countryNameLabel = makeTitleLabel()
     private let capitalCityLabel = makeSubTitleLabel()
@@ -73,18 +75,22 @@ extension CountriesTableViewCell {
     
     func changeArrowSide() {
         UIView.animate(withDuration: Constants.TableView.animationDuration) {
-            let upsideDown = CGAffineTransform(rotationAngle: .pi * -0.999 )
+            let upsideDown = CGAffineTransform(rotationAngle: .pi * Constants.Numbers.rotationNum )
             self.arrowImageView.transform = self.isSelected ? upsideDown : .identity
         }
     }
     
     func configureCell(_ country: CountriesListForCell) {
+        
         countryNameLabel.text = country.countryName
         capitalCityLabel.text = country.capitalCity
         populationValueLabel.text = country.population
         areaValueLabel.text = country.area
         currenciesValueLabel.text = country.currency
-        
+    }
+    
+    func setImage(with image: UIImage) {
+        flagImageView.image = image
     }
 }
 
@@ -105,6 +111,8 @@ private extension CountriesTableViewCell {
     static func makeTitleLabel() -> UILabel {
         let titleLabel = UILabel()
         
+        titleLabel.adjustsFontSizeToFitWidth = true
+        titleLabel.minimumScaleFactor = 0.5
         titleLabel.font = UIFont.semiboldStandard
         titleLabel.textColor = Constants.Color.boldBlack
         
@@ -146,6 +154,8 @@ private extension CountriesTableViewCell {
         
         propertyValueLabel.font = UIFont.regularMedium
         propertyValueLabel.textColor = Constants.Color.black
+        propertyValueLabel.adjustsFontSizeToFitWidth = true
+        propertyValueLabel.minimumScaleFactor = 0.5
         propertyValueLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         
         return propertyValueLabel
@@ -196,6 +206,11 @@ private extension CountriesTableViewCell {
         
         [collapsedStackView, expandedStackView].forEach { contentView.addSubview($0)}
         
+//        spacer.snp.makeConstraints { make in
+//            make.height.equalTo(Constants.StackView.zeroSpacer)
+//            make.width.equalTo(Constants.StackView.zeroSpacer)
+//        }
+        
         flagImageView.snp.makeConstraints { make in
             make.width.equalTo(contentView).dividedBy(Constants.Image.flagWidthDiv)
         }
@@ -229,13 +244,14 @@ private extension CountriesTableViewCell {
 private extension Constants {
     
     struct StackView {
+        static let zeroSpacer = CGFloat(0)
         static let smallSpacing = CGFloat(4)
         static let mediumSpacing = CGFloat(8)
         static let standardSpacing = CGFloat(12)
-        static let hugeSpacing = CGFloat(16)
-        static let largeSpacing = CGFloat(16)
+        static let hugeSpacing = CGFloat(12)
+        static let largeSpacing = CGFloat(12)
         static let collapsedHeightDiv = CGFloat(6.64)
-        static var expandedSpacing: CGFloat = -14
+        static var expandedSpacing = CGFloat(-14)
     }
     
     struct Text {

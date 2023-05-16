@@ -20,6 +20,11 @@ class CountriesViewController: UIViewController {
         cell.isSelected = true
         return cell
     }()
+    let collapsedCell: CountriesTableViewCell = {
+        let cell = CountriesTableViewCell()
+        cell.isSelected = false
+        return cell
+    }()
     private var countries: [CountriesListForCell]?
     
     // MARK: - Initialization
@@ -82,17 +87,18 @@ extension CountriesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CountriesTableViewCell.cellId, for: indexPath) as? CountriesTableViewCell,
-              let countriees = self.countries?[indexPath.row]
+              let country = self.countries?[indexPath.row],
+              let flagImageURL = URL(string: country.flagUrl)
                else { return UITableViewCell() }
         
-        cell.configureCell(countriees)
-        
+        cell.configureCell(country)
+        viewModel.reloadImage(with: flagImageURL, indexPath: indexPath)
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let height = tableView.frame.width / Constants.TableView.heightDivision
+//        let height = tableView.frame.width / Constants.TableView.heightDivision
         
         let isSelected = tableView.indexPathsForSelectedRows?.contains(indexPath) ?? false
         let expandedHeight = expandedCell.systemLayoutSizeFitting(
@@ -100,7 +106,12 @@ extension CountriesViewController: UITableViewDataSource {
                         withHorizontalFittingPriority: .required,
                         verticalFittingPriority: .defaultLow
         ).height + Constants.TableView.expandedMardins
-        let finalHeight: CGFloat = isSelected ? expandedHeight : height
+        let collapsedHeight = collapsedCell.systemLayoutSizeFitting(
+            CGSize(width: tableView.frame.width, height: .zero),
+                        withHorizontalFittingPriority: .required,
+                        verticalFittingPriority: .defaultLow
+        ).height + Constants.TableView.expandedMardins
+        let finalHeight: CGFloat = isSelected ? expandedHeight : collapsedHeight
         return finalHeight
     }
     
@@ -121,6 +132,11 @@ private extension CountriesViewController {
         viewModel.didRecieveData = { countries in
             self.countries = countries
             self.rootView.countriesTableView.reloadData()
+        }
+        
+        viewModel.didRecieveImage = { image, indexPath in
+            let cell = self.rootView.countriesTableView.cellForRow(at: indexPath) as? CountriesTableViewCell
+            cell?.setImage(with: image)
         }
     }
 }

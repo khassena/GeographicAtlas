@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol CountriesViewModelProtocol {
     
@@ -13,8 +14,10 @@ protocol CountriesViewModelProtocol {
     
     var countries: [CountriesListForCell]? { get set }
     var didRecieveData: (([CountriesListForCell]) -> Void)? { get set }
+    var didRecieveImage: ((UIImage, IndexPath) -> Void)? { get set }
     
     func reloadData()
+    func reloadImage(with url: URL, indexPath: IndexPath)
 }
 
 class CountriesViewModel: CountriesViewModelProtocol {
@@ -25,6 +28,7 @@ class CountriesViewModel: CountriesViewModelProtocol {
     var countries: [CountriesListForCell]?
     
     var didRecieveData: (([CountriesListForCell]) -> Void)?
+    var didRecieveImage: ((UIImage, IndexPath) -> Void)?
     
     // MARK: - Initialization
     
@@ -45,6 +49,10 @@ extension CountriesViewModel {
     func reloadData() {
         getDataFromNetwork()
     }
+    
+    func reloadImage(with url: URL, indexPath: IndexPath) {
+        getImageFromNetwork(url, indexPath)
+    }
 }
 
 // MARK: - Private Methods
@@ -63,6 +71,17 @@ private extension CountriesViewModel {
                 case .failure(let error):
                     print(error)
                 }
+            }
+        })
+    }
+    
+    func getImageFromNetwork(_ url: URL?, _ indexPath: IndexPath) {
+        repository.networkTask?.getImage(from: url, completion: { result in
+            switch result {
+            case .success(let image):
+                self.didRecieveImage?(image, indexPath)
+            case .failure(let error):
+                print(error)
             }
         })
     }

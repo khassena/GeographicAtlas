@@ -59,7 +59,7 @@ private extension Repository {
     
     func convertPopulationToString(_ population: Int) -> String {
         
-        let mln = 1000000
+        let mln = Constants.Numbers.millionInt
         let formattedPopulation: String
         
         if population >= mln * mln {
@@ -68,27 +68,23 @@ private extension Repository {
         } else if population >= mln {
           let mlnPopulation = Double(population) / Double(mln)
           formattedPopulation = String(format: "%.2f mln", mlnPopulation)
-        } else {
+        } else if population >= 1000 {
           formattedPopulation = "\(population/1000)K"
+        } else {
+            formattedPopulation = "\(population) "
         }
         
         return formattedPopulation
     }
     
     func convertAreaToString(_ area: Double) -> String {
-//        let formatter = MeasurementFormatter()
-//        formatter.unitOptions = .providedUnit
-//        formatter.numberFormatter.maximumFractionDigits = 0
-//        let measurement = Measurement(value: area, unit: UnitArea.squareMeters)
-//        let areaString = formatter.string(from: measurement.converted(to: .squareKilometers))
-//        return areaString
         
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
 
-        if area >= 1_000_000 {
-            let areaMln = area / 1_000_000.0
-            formatter.maximumFractionDigits = 3
+        if area >= Constants.Numbers.millionCGFloat {
+            let areaMln = area / Constants.Numbers.millionCGFloat
+            formatter.maximumFractionDigits = Constants.Numbers.three
             let areaMlnString = formatter.string(from: NSNumber(value: areaMln)) ?? ""
             return "\(areaMlnString) mln km²"
         } else {
