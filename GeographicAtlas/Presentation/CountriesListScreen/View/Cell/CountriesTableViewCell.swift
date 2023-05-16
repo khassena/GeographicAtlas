@@ -7,12 +7,18 @@
 
 import UIKit
 import SnapKit
-//import SDWebImage
+
+protocol CountriesTableViewCellDelegate: AnyObject {
+    func didTapLearnMoreButton(ccaTwoCode: String)
+}
 
 class CountriesTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     static let cellId = "CountriesTableViewCell"
+    
+    weak var delegate: CountriesTableViewCellDelegate?
+    private var ccaTwoCode = String()
     
     private var expandedConstraint: Constraint!
     private var collapsedConstraint: Constraint!
@@ -87,6 +93,7 @@ extension CountriesTableViewCell {
         populationValueLabel.text = country.population
         areaValueLabel.text = country.area
         currenciesValueLabel.text = country.currency
+        ccaTwoCode = country.ccaTwoCode
     }
     
     func setImage(with image: UIImage) {
@@ -103,7 +110,6 @@ private extension CountriesTableViewCell {
         
         flagImageView.layer.masksToBounds = true
         flagImageView.layer.cornerRadius = Constants.Countries.imageCornerRadius
-        flagImageView.layer.masksToBounds = true
         
         return flagImageView
     }
@@ -131,7 +137,7 @@ private extension CountriesTableViewCell {
     static func makeArrowImage() -> UIImageView {
         let arrowImageView = UIImageView()
         
-        arrowImageView.image = UIImage(named: "arrowDown")
+        arrowImageView.image = Constants.Image.arrowImage
         arrowImageView.contentMode = .scaleAspectFit
         arrowImageView.layer.masksToBounds = true
         
@@ -200,16 +206,12 @@ private extension CountriesTableViewCell {
         collapsedStackView.layoutMargins.right = Constants.Image.arrowTrailing
         collapsedStackView.isLayoutMarginsRelativeArrangement = true
         contentView.clipsToBounds = true
+        learnMoreButton.addTarget(self, action: #selector(didTapLearnButton), for: .touchUpInside)
     }
     
     func setupViewPosition() {
         
         [collapsedStackView, expandedStackView].forEach { contentView.addSubview($0)}
-        
-//        spacer.snp.makeConstraints { make in
-//            make.height.equalTo(Constants.StackView.zeroSpacer)
-//            make.width.equalTo(Constants.StackView.zeroSpacer)
-//        }
         
         flagImageView.snp.makeConstraints { make in
             make.width.equalTo(contentView).dividedBy(Constants.Image.flagWidthDiv)
@@ -237,6 +239,10 @@ private extension CountriesTableViewCell {
         
     }
     
+    @objc func didTapLearnButton() {
+        delegate?.didTapLearnMoreButton(ccaTwoCode: ccaTwoCode)
+    }
+    
 }
 
 // MARK: - Constants
@@ -259,6 +265,7 @@ private extension Constants {
     }
     
     struct Image {
+        static let arrowImage = UIImage(named: "arrowDown")
         static let flagWidthDiv = CGFloat(4.18)
         static let flagHeightDiv = CGFloat(1.7)
         static let arrowTrailing = CGFloat(4.75)

@@ -26,10 +26,32 @@ final class CountriesCoordinator: Coordinator {
     override func start() {
         
         let countriesViewModel = CountriesViewModel(repository: repository)
+        countriesViewModel.coordinatorDelegate = self
         
         let countriesViewController = CountriesViewController(viewModel: countriesViewModel)
         countriesViewController.title = "World countries"
         
         rootNavigationController.setViewControllers([countriesViewController], animated: false)
+    }
+}
+
+extension CountriesCoordinator: CountriesViewModelCoordinatorDelegate {
+    
+    
+    func didTapLearnMoreButton(ccaTwoCode: String) {
+        let detailsCoordinator = DetailsCoordinator(rootNavigationController: rootNavigationController, repository: repository, ccaTwoCode: ccaTwoCode)
+        
+        detailsCoordinator.delegate = self
+        addChildCoordinator(detailsCoordinator)
+        detailsCoordinator.start()
+    }
+    
+}
+
+// MARK: - Coordinator Delegate
+
+extension CountriesCoordinator: DetailsCoordinatorProtocol {
+    func didFinish(from coordinator: DetailsCoordinator) {
+        removeChildCoordinator(coordinator)
     }
 }

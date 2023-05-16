@@ -134,7 +134,7 @@ extension CountriesViewController: UITableViewDataSource {
               let country = self.countries?[indexPath.section][indexPath.row],
               let flagImageURL = URL(string: country.flagUrl)
                else { return UITableViewCell() }
-        
+        cell.delegate = self
         cell.configureCell(country)
         viewModel.reloadImage(with: flagImageURL, indexPath: indexPath)
         
@@ -161,6 +161,12 @@ extension CountriesViewController: UITableViewDataSource {
     
 }
 
+extension CountriesViewController: CountriesTableViewCellDelegate {
+    func didTapLearnMoreButton(ccaTwoCode: String) {
+        viewModel.learnMoreTapped(ccaTwoCode: ccaTwoCode)
+    }
+}
+
 // MARK: - Private Methods
 
 private extension CountriesViewController {
@@ -168,11 +174,7 @@ private extension CountriesViewController {
     func setTableView() {
         rootView.countriesTableView.delegate = self
         rootView.countriesTableView.dataSource = self
-        rootView.countriesTableView.allowsMultipleSelection = true
         rootView.countriesTableView.register(CountriesTableViewCell.self, forCellReuseIdentifier: CountriesTableViewCell.cellId)
-        if #available(iOS 15.0, *) {
-            rootView.countriesTableView.sectionHeaderTopPadding = 15
-        }
     }
     
     func bindToViewModel() {

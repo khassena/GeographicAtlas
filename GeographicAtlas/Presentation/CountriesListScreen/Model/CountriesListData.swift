@@ -15,4 +15,5 @@ struct CountriesListData: Equatable {
     let area: String
     let currency: String
     let continent: [CountriesList.Continents]
+    let ccaTwoCode: String
 }

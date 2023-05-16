@@ -43,6 +43,10 @@ private extension CountriesRootView {
         countriesTableView.separatorStyle = .none
         countriesTableView.showsVerticalScrollIndicator = false
         countriesTableView.showsHorizontalScrollIndicator = false
+        countriesTableView.allowsMultipleSelection = true
+        if #available(iOS 15.0, *) {
+            countriesTableView.sectionHeaderTopPadding = 15
+        }
     }
 }
 

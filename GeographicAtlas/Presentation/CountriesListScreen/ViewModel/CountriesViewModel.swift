@@ -10,7 +10,7 @@ import UIKit
 
 protocol CountriesViewModelProtocol {
     
-    init(repository: Repository)
+    init(repository: RepositoryProtocol)
     
     var countries: [[CountriesListData]]? { get set }
     var didRecieveData: (([[CountriesListData]]?) -> Void)? { get set }
@@ -18,21 +18,27 @@ protocol CountriesViewModelProtocol {
     
     func reloadData()
     func reloadImage(with url: URL, indexPath: IndexPath)
+    func learnMoreTapped(ccaTwoCode: String)
+}
+
+protocol CountriesViewModelCoordinatorDelegate: AnyObject {
+    func didTapLearnMoreButton(ccaTwoCode: String)
 }
 
 class CountriesViewModel: CountriesViewModelProtocol {
     
     // MARK: - Properties
     
-    private let repository: Repository
+    private let repository: RepositoryProtocol
     var countries: [[CountriesListData]]?
+    weak var coordinatorDelegate: CountriesViewModelCoordinatorDelegate?
     
     var didRecieveData: (([[CountriesListData]]?) -> Void)?
     var didRecieveImage: ((UIImage, IndexPath) -> Void)?
     
     // MARK: - Initialization
     
-    required init(repository: Repository) {
+    required init(repository: RepositoryProtocol) {
         self.repository = repository
         DispatchQueue.main.async {
             self.reloadData()
@@ -52,6 +58,10 @@ extension CountriesViewModel {
     
     func reloadImage(with url: URL, indexPath: IndexPath) {
         getImageFromNetwork(url, indexPath)
+    }
+    
+    func learnMoreTapped(ccaTwoCode: String) {
+        coordinatorDelegate?.didTapLearnMoreButton(ccaTwoCode: ccaTwoCode)
     }
 }
 
