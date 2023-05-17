@@ -15,8 +15,10 @@ struct Flag: Decodable {
     let png: String
 }
 
-struct Currency: Codable {
+struct Currency: Decodable {
     let name: String?
     let symbol: String?
 }
+
+
 

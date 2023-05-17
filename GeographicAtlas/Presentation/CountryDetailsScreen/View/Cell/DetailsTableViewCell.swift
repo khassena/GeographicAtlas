@@ -8,11 +8,19 @@
 import UIKit
 import SnapKit
 
+protocol DetailsTableViewCellDelegate: AnyObject {
+    func didTapCoordinates(map: String?)
+}
+
 class DetailsTableViewCell: UITableViewCell {
 
     // MARK: - Properties
     static let cellId = "DetailsTableViewCell"
     
+    weak var delegate: DetailsTableViewCellDelegate?
+    
+    private var map: String?
+    private var index: Int?
     private let spacer = UIView()
     private let dotImageView = makeDotImage()
     private let propertyName = makeTitleLabel()
@@ -43,7 +51,7 @@ class DetailsTableViewCell: UITableViewCell {
 // MARK: - Public Methods
 
 extension DetailsTableViewCell {
-    func configureCell(_ value: String, index: Int) {
+    func configureCell(_ value: String, index: Int, map: String?) {
         switch index {
         case 0:
             propertyName.text = "Region:"
@@ -69,6 +77,8 @@ extension DetailsTableViewCell {
         default:
             print("Element Not Found in cell")
         }
+        self.map = map
+        self.index = index
     }
 }
 
@@ -125,13 +135,20 @@ private extension DetailsTableViewCell {
     
     func setupViews() {
         selectionStyle = .none
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(propertyValueTapped(_:)))
 
+        propertyValue.isUserInteractionEnabled = true
+        propertyValue.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func propertyValueTapped(_ gesture: UITapGestureRecognizer) {
+        if let _ = gesture.view as? UILabel, index == 2 {
+            delegate?.didTapCoordinates(map: map)
+        }
     }
     
     func setupViewPosition() {
-//        [dotImageView, titlesStackView].forEach { contentView.addSubview($0) }
         contentView.addSubview(generalStackView)
-//        imageStackView.alignment = .leading
         
         generalStackView.snp.makeConstraints { make in
             make.edges.equalTo(contentView)
@@ -151,9 +168,6 @@ private extension DetailsTableViewCell {
             make.width.equalTo(dotImageView.snp.width)
         }
         
-//        titlesStackView.snp.makeConstraints { make in
-//            make.height.equalTo(titlesStackView.snp.width).dividedBy(6.76)
-//        }
     }
 }
 

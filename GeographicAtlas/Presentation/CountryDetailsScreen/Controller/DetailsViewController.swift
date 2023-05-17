@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WebKit
 
 class DetailsViewController: UIViewController {
     
@@ -21,6 +22,7 @@ class DetailsViewController: UIViewController {
     }()
     private var flagHeaderView: FlagHeaderView?
     private var countryDetails: [String]?
+    private var capitalCityMap: String?
     private var skeletonBool = Bool()
     
     private var skeletonViews: [DetailsSkeletonTableViewCell]?
@@ -82,9 +84,9 @@ extension DetailsViewController: UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailsTableViewCell.cellId, for: indexPath) as? DetailsTableViewCell,
               let countryDetail = countryDetails?[indexPath.row] else { return UITableViewCell() }
-
-        cell.configureCell(countryDetail, index: indexPath.row)
-        tempCell.configureCell(countryDetail, index: indexPath.row)
+        cell.delegate = self
+        cell.configureCell(countryDetail, index: indexPath.row, map: self.capitalCityMap)
+        tempCell.configureCell(countryDetail, index: indexPath.row, map: capitalCityMap)
 
         return cell
     }
@@ -117,16 +119,17 @@ private extension DetailsViewController {
     }
     
     func bindToViewModel() {
-        viewModel.didRecieveData = { [weak self] (country, countryName) in
-            DispatchQueue.main.async {
+        viewModel.didRecieveData = { [weak self] (country, countryName, capitalCityMap) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self?.countryDetails = country
                 self?.title = countryName
+                self?.capitalCityMap = capitalCityMap
                 self?.rootView.detailsTableView.reloadData()
             }
         }
         
         viewModel.didRecieveImage = { [weak self] image in
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self?.flagHeaderView?.flagImageView.image = image
             }
         }
@@ -141,5 +144,27 @@ private extension DetailsViewController {
         }
         
         return skeletonCells
+    }
+}
+
+extension DetailsViewController: DetailsTableViewCellDelegate {
+    
+    func didTapCoordinates(map: String?) {
+        
+        let alert = UIAlertController(title: "Open the link?", message: "A link to the maps will be opened now", preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            guard let urlString = map, let url = URL(string: urlString) else {
+                return
+            }
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(okAction)
+        
+        present(alert, animated: true, completion: nil)
     }
 }

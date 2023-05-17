@@ -17,4 +17,5 @@ struct DetailsModel {
     let timezone: String
     let area: String
     let currency: String
+    let maps: String
 }

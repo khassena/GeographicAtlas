@@ -85,10 +85,10 @@ private extension DetailsSkeletonTableViewCell {
         [skeletonImage, skeletonNameView, skeletonPositionView].forEach { contentView.addSubview($0) }
 
         skeletonImage.snp.makeConstraints { make in
-            make.leading.equalTo(contentView.snp.leading).offset(16)
+            make.leading.equalTo(contentView.snp.leading).offset(4)
             make.centerY.equalTo(contentView.snp.centerY)
-            make.width.equalTo(10)
-            make.height.equalTo(10)
+            make.width.equalTo(20)
+            make.height.equalTo(20)
         }
 
         skeletonNameView.snp.makeConstraints { make in
@@ -117,7 +117,7 @@ private extension Constants {
         static let zeroSpacer = CGFloat(0)
         static let smallSpacing = CGFloat(4)
         static let mediumSpacing = CGFloat(8)
-        static let standardSpacing = CGFloat(22)
+        static let standardSpacing = CGFloat(16)
         static let hugeSpacing = CGFloat(12)
         static let largeSpacing = CGFloat(12)
     }
@@ -140,9 +140,9 @@ private extension Constants {
         static let skeletonStart = UIColor(red: 0.955, green: 0.955, blue: 0.965, alpha: 1).cgColor
         static let skeletonEnd = UIColor(red: 0.979, green: 0.979, blue: 0.981, alpha: 1).cgColor
         static let nameViewWidth: CGFloat = 144.0
-        static let nameViewHeight: CGFloat = 16.0
+        static let nameViewHeight: CGFloat = 20.0
         static let positionViewWidth: CGFloat = 80.0
-        static let positionViewHeight: CGFloat = 12.0
+        static let positionViewHeight: CGFloat = 15.0
         static let spacing: CGFloat = 4.0
         static let imageFrame: CGRect = CGRect(x: 0, y: 0, width: 10, height: 10)
         static let nameFrame: CGRect = CGRect(x: 0, y: 0, width: 144, height: 16)

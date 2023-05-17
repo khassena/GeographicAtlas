@@ -18,13 +18,14 @@ struct Country: Decodable {
     let population: Int
     let area: Double
     let flag: Flag
+    let maps: Maps
     
-    struct Name: Decodable {
-        let common: String
-    }
-
-    struct Flag: Decodable {
-        let png: String
+    struct Maps: Codable {
+        let openStreetMaps: String?
+        
+        private enum CodingKeys: String, CodingKey {
+            case openStreetMaps = "openStreetMaps"
+        }
     }
     
     enum CodingKeys: String, CodingKey {
@@ -38,6 +39,7 @@ struct Country: Decodable {
         case population
         case area
         case flag = "flags"
+        case maps = "maps"
     }
     
     init(from decoder: Decoder) throws {
@@ -52,6 +54,7 @@ struct Country: Decodable {
         population = try values.decode(Int.self, forKey: .population)
         area = try values.decode(Double.self, forKey: .area)
         flag = try values.decode(Flag.self, forKey: .flag)
+        maps = try values.decode(Maps.self, forKey: .maps)
     }
 }
 

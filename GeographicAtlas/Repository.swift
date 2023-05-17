@@ -13,7 +13,7 @@ protocol RepositoryProtocol {
     var networkTask: NetworkTaskProtocol? { get set }
     func countriesListDataToSections(_ countriesList: [CountriesList]) -> [[CountriesListData]]?
     func countriesListElementToCell(_ countriesList: CountriesList) -> CountriesListData
-    func countryDetailDataToTransfer(_ countryDetail: [Country]) -> ([String], (String, String))
+    func countryDetailDataToTransfer(_ countryDetail: [Country]) -> ([String], (String, String, String))
 }
 
 class Repository: RepositoryProtocol {
@@ -62,7 +62,7 @@ extension Repository {
             case .northAmerica:
                 northAmerica.append(countriesListElement)
             case .none:
-                print("Error")
+                print("Error, not found continent")
             }
             
         }
@@ -70,12 +70,12 @@ extension Repository {
         return [europe, asia, africa, oceania, southAmerica, northAmerica, antarctica]
     }
     
-    func countryDetailDataToTransfer(_ countryDetail: [Country]) -> ([String], (String, String)) {
+    func countryDetailDataToTransfer(_ countryDetail: [Country]) -> ([String], (String, String, String)) {
         
-        guard let country = countryDetail.first else { return ([""],("", "")) }
+        guard let country = countryDetail.first else { return ([""],("", "", "")) }
         
         let data = countryDetailToCell(country)
-        return ([data.subRegion, data.capitalCity, data.capitalCoordinates, data.population, data.area, data.currency, data.timezone], (data.countryName, data.flagUrl))
+        return ([data.subRegion, data.capitalCity, data.capitalCoordinates, data.population, data.area, data.currency, data.timezone], (data.countryName, data.flagUrl, data.maps))
     }
     
     func countriesListElementToCell(_ countriesList: CountriesList) -> CountriesListData {
@@ -127,7 +127,8 @@ private extension Repository {
             capitalCoordinates: coordinates,
             timezone: timeZones,
             area: areaString,
-            currency: currencyString
+            currency: currencyString,
+            maps: country.maps.openStreetMaps ?? ""
         )
         
     }
@@ -187,11 +188,9 @@ private extension Repository {
         
         let latitudeDegrees = Int(latitude)
         let latitudeMinutes = Int((latitude - Double(latitudeDegrees)) * 60)
-//        let latitudeSeconds = Int(((latitude - Double(latitudeDegrees)) * 60 - Double(latitudeMinutes)) * 60)
         
         let longitudeDegrees = Int(longitude)
         let longitudeMinutes = Int((longitude - Double(longitudeDegrees)) * 60)
-//        let longitudeSeconds = Int(((longitude - Double(longitudeDegrees)) * 60 - Double(longitudeMinutes)) * 60)
         
         let latitudeString = String(format: "%d°%02d′", latitudeDegrees, latitudeMinutes)
         let longitudeString = String(format: "%d°%02d′", longitudeDegrees, longitudeMinutes)
@@ -200,26 +199,27 @@ private extension Repository {
     }
     
     func calculateAverageGMT(timeZones: [String?]) -> String {
+        var convertedTimezones: [String] = []
         
-        var totalOffsetMinutes = 0
-        var totalOffsetsCount = 0
-        
-        for timeZone in timeZones {
-            let components = timeZone?.components(separatedBy: ":")
-            guard components?.count == 2,
-                  let hoursString = components?[1].components(separatedBy: "-").last,
-                  let hours = Int(hoursString) else {
-                return "nil"
+        for timezone in timeZones {
+            if let timezone = timezone {
+                if timezone.hasPrefix("UTC+") {
+                    let offsetIndex = timezone.index(timezone.startIndex, offsetBy: 4)
+                    let offset = timezone[offsetIndex...]
+                    let convertedTimezone = "GMT+\(offset)"
+                    convertedTimezones.append(convertedTimezone)
+                } else if timezone.hasPrefix("UTC-") {
+                    let offsetIndex = timezone.index(timezone.startIndex, offsetBy: 4)
+                    let offset = timezone[offsetIndex...]
+                    let convertedTimezone = "GMT-\(offset)"
+                    convertedTimezones.append(convertedTimezone)
+                } else {
+                    convertedTimezones.append(timezone)
+                }
             }
-            
-            let offsetMinutes = hours * 60
-            totalOffsetMinutes += offsetMinutes
-            totalOffsetsCount += 1
         }
         
-        let averageOffsetMinutes = totalOffsetMinutes / totalOffsetsCount
-        let averageOffsetHours = averageOffsetMinutes / 60
-        
-        return "GMT+\(averageOffsetHours)"
+        let combinedTimezones = convertedTimezones.joined(separator: ", ")
+        return combinedTimezones
     }
 }
