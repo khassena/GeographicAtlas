@@ -35,7 +35,9 @@ iOS application that makes a request via an open API to get some data about coun
     <tbody>
         <tr>
             <td>
-                <img width="250" src="Gifs/CountriesListScreen.gif">
+                <video width="250" controls>
+                    <source src="https://youtube.com/shorts/KdAGUWBM7D0?feature=share" type="video/mp4">
+                </video>
             </td>
             <td>
                 <img width="250" src="Gifs/LearnMoreButton.gif">
