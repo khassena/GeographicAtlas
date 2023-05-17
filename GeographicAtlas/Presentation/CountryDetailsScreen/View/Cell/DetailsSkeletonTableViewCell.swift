@@ -82,27 +82,27 @@ private extension DetailsSkeletonTableViewCell {
     }
     
     func setupViewPosition() {
-        [skeletonImage, skeletonNameView, skeletonPositionView].forEach { addSubview($0) }
+        [skeletonImage, skeletonNameView, skeletonPositionView].forEach { contentView.addSubview($0) }
 
         skeletonImage.snp.makeConstraints { make in
-            make.leading.equalTo(contentView.snp.leading).offset(28)
+            make.leading.equalTo(contentView.snp.leading).offset(16)
             make.centerY.equalTo(contentView.snp.centerY)
-            make.width.equalTo(contentView).dividedBy(Constants.Image.flagWidthDiv)
-            make.height.equalTo(skeletonImage.snp.width).dividedBy(Constants.Image.flagHeightDiv)
+            make.width.equalTo(10)
+            make.height.equalTo(10)
         }
 
         skeletonNameView.snp.makeConstraints { make in
             make.leading.equalTo(skeletonImage.snp.trailing).offset(Constants.StackView.standardSpacing)
-            make.top.equalTo(contentView.snp.top).offset(Constants.Skeleton.skeletonNameTop)
-            make.width.equalTo(Constants.Skeleton.nameViewWidth)
-            make.height.equalTo(Constants.Skeleton.nameViewHeight)
+            make.top.equalTo(skeletonPositionView.snp.bottom).offset(Constants.Skeleton.spacing)
+            make.width.equalTo(Constants.Skeleton.positionViewWidth)
+            make.height.equalTo(Constants.Skeleton.positionViewHeight)
         }
 
         skeletonPositionView.snp.makeConstraints { make in
             make.leading.equalTo(skeletonImage.snp.trailing).offset(Constants.StackView.standardSpacing)
-            make.top.equalTo(skeletonNameView.snp.bottom).offset(Constants.Skeleton.spacing)
-            make.width.equalTo(Constants.Skeleton.positionViewWidth)
-            make.height.equalTo(Constants.Skeleton.positionViewHeight)
+            make.top.equalTo(contentView.snp.top).offset(Constants.Skeleton.skeletonNameTop)
+            make.width.equalTo(Constants.Skeleton.nameViewWidth)
+            make.height.equalTo(Constants.Skeleton.nameViewHeight)
         }
         
     }
@@ -117,13 +117,12 @@ private extension Constants {
         static let zeroSpacer = CGFloat(0)
         static let smallSpacing = CGFloat(4)
         static let mediumSpacing = CGFloat(8)
-        static let standardSpacing = CGFloat(94)
+        static let standardSpacing = CGFloat(22)
         static let hugeSpacing = CGFloat(12)
         static let largeSpacing = CGFloat(12)
     }
 
     struct Image {
-        static let arrowImage = UIImage(named: "arrowDown")
         static let flagWidthDiv = CGFloat(4.18)
         static let flagHeightDiv = CGFloat(1.7)
         static let arrowTrailing = CGFloat(4.75)

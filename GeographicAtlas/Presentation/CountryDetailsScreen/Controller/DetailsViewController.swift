@@ -19,8 +19,11 @@ class DetailsViewController: UIViewController {
         let cell = DetailsTableViewCell()
         return cell
     }()
-    var flagHeaderView: FlagHeaderView?
-    var countryDetails: [String]?
+    private var flagHeaderView: FlagHeaderView?
+    private var countryDetails: [String]?
+    private var skeletonBool = Bool()
+    
+    private var skeletonViews: [DetailsSkeletonTableViewCell]?
     
     // MARK: - Initialization
     
@@ -43,6 +46,7 @@ class DetailsViewController: UIViewController {
         rootView.setup()
         setTableView()
         bindToViewModel()
+        skeletonViews = createSkeletonCells()
     }
 
 }
@@ -51,9 +55,7 @@ class DetailsViewController: UIViewController {
 
 extension DetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let _ = countryDetails else { return .zero }
         return Constants.Country.countryPropertiesCount
-        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -68,22 +70,33 @@ extension DetailsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        skeletonBool = false
+        guard let _ = self.countryDetails else {
+            if let skeletonCell = skeletonViews?[indexPath.row] {
+                skeletonBool = true
+                return skeletonCell
+            } else {
+                return UITableViewCell()
+            }
+        }
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailsTableViewCell.cellId, for: indexPath) as? DetailsTableViewCell,
               let countryDetail = countryDetails?[indexPath.row] else { return UITableViewCell() }
-        
+
         cell.configureCell(countryDetail, index: indexPath.row)
         tempCell.configureCell(countryDetail, index: indexPath.row)
-        
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let height = tempCell.systemLayoutSizeFitting(
             CGSize(width: tableView.frame.width, height: .zero),
-                        withHorizontalFittingPriority: .required,
-                        verticalFittingPriority: .defaultLow
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .defaultLow
         ).height + Constants.TableView.countryCellMargins
-        return height
+        let tempHeight = skeletonBool ? 60 : height
+        return tempHeight
     }
     
 }
@@ -117,5 +130,16 @@ private extension DetailsViewController {
                 self?.flagHeaderView?.flagImageView.image = image
             }
         }
+    }
+    
+    func createSkeletonCells() -> [DetailsSkeletonTableViewCell] {
+        var skeletonCells: [DetailsSkeletonTableViewCell] = []
+        
+        for _ in 0..<10 {
+            let cell = DetailsSkeletonTableViewCell(style: .default, reuseIdentifier: nil)
+            skeletonCells.append(cell)
+        }
+        
+        return skeletonCells
     }
 }

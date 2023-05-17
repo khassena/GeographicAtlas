@@ -82,10 +82,10 @@ private extension CountriesSkeletonTableViewCell {
     }
     
     func setupViewPosition() {
-        [skeletonImage, skeletonNameView, skeletonPositionView].forEach { addSubview($0) }
+        [skeletonImage, skeletonNameView, skeletonPositionView].forEach { contentView.addSubview($0) }
 
         skeletonImage.snp.makeConstraints { make in
-            make.leading.equalTo(contentView.snp.leading).offset(28)
+            make.leading.equalTo(contentView.snp.leading).offset(16)
             make.centerY.equalTo(contentView.snp.centerY)
             make.width.equalTo(contentView).dividedBy(Constants.Image.flagWidthDiv)
             make.height.equalTo(skeletonImage.snp.width).dividedBy(Constants.Image.flagHeightDiv)
@@ -117,7 +117,7 @@ private extension Constants {
         static let zeroSpacer = CGFloat(0)
         static let smallSpacing = CGFloat(4)
         static let mediumSpacing = CGFloat(8)
-        static let standardSpacing = CGFloat(94)
+        static let standardSpacing = CGFloat(12)
         static let hugeSpacing = CGFloat(12)
         static let largeSpacing = CGFloat(12)
     }
@@ -148,7 +148,7 @@ private extension Constants {
         static let imageFrame: CGRect = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width / 4.57 , height: UIScreen.main.bounds.width / 7.8)
         static let nameFrame: CGRect = CGRect(x: 0, y: 0, width: 144, height: 16)
         static let posFrame: CGRect = CGRect(x: 0, y: 0, width: 80, height: 12)
-        static let skeletonNameTop: CGFloat = 12.0
+        static let skeletonNameTop: CGFloat = 24.0
     }
     
     enum Gradient {

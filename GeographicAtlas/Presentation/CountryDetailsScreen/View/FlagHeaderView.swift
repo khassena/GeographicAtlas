@@ -12,6 +12,7 @@ class FlagHeaderView: UIView {
 
     let flagImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = getBackImage()
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleToFill
@@ -36,23 +37,29 @@ class FlagHeaderView: UIView {
     private func setupPosition() {
         addSubview(flagImageView)
         
-//        flagImageView.layer.cornerRadius = 10
-//        flagImageView.clipsToBounds = true
-//        flagImageView.contentMode = .scaleAspectFill
-        
         flagImageView.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview().inset(16)
             make.bottom.equalTo(-21)
-//            make.centerY.equalToSuperview()
-//            make.centerX.equalToSuperview()
-//            make.width.equalTo(UIScreen.main.bounds.width).offset(-32)
-//            make.height.equalTo(flagImageView.snp.width).dividedBy(1.7)
-//            make.height.equalTo(flagImageView.snp.width).dividedBy(1.7)
         }
+    }
+}
+
+extension FlagHeaderView {
+    private static func getBackImage() -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: Constants.imageSize)
+        let image = renderer.image { context in
+            Constants.skeletonImageColor.setFill()
+            let rect = CGRect(origin: .zero, size: Constants.imageSize)
+            let path = UIBezierPath(rect: rect)
+            path.fill()
+        }
+        return image
     }
 }
 
 private extension Constants {
     static let insets = CGFloat(16)
     static let divider = CGFloat(1.7)
+    static let imageSize = CGSize(width: 300, height: 200)
+    static let skeletonImageColor = UIColor(red: 0.955, green: 0.955, blue: 0.965, alpha: 1)
 }
