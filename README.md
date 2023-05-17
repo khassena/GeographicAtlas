@@ -35,9 +35,7 @@ iOS application that makes a request via an open API to get some data about coun
     <tbody>
         <tr>
             <td>
-                <video width="250" controls>
-                    <source src="https://youtube.com/shorts/KdAGUWBM7D0?feature=share" type="video/mp4">
-                </video>
+                <iframe src="https://player.vimeo.com/video/827676630?h=baf870793a&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="CountriesList"></iframe>
             </td>
             <td>
                 <img width="250" src="Gifs/LearnMoreButton.gif">
