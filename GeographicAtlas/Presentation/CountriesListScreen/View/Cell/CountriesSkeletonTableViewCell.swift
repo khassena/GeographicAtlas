@@ -114,16 +114,10 @@ private extension CountriesSkeletonTableViewCell {
 private extension Constants {
     
     struct StackView {
-        static let zeroSpacer = CGFloat(0)
-        static let smallSpacing = CGFloat(4)
-        static let mediumSpacing = CGFloat(8)
         static let standardSpacing = CGFloat(12)
-        static let hugeSpacing = CGFloat(12)
-        static let largeSpacing = CGFloat(12)
     }
 
     struct Image {
-        static let arrowImage = UIImage(named: "arrowDown")
         static let flagWidthDiv = CGFloat(4.18)
         static let flagHeightDiv = CGFloat(1.7)
         static let arrowTrailing = CGFloat(4.75)

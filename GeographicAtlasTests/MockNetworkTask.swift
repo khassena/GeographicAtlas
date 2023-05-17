@@ -12,6 +12,7 @@ import UIKit
 class MockNetworkTask: NetworkTaskProtocol {
     
     var getAllCountriesCalled = false
+    var getCountryByCodeCalled = false
     var getImageURL: URL?
     
     func getAllCountries(completion: @escaping (Result<[CountriesList], Error>) -> Void) {
@@ -19,7 +20,7 @@ class MockNetworkTask: NetworkTaskProtocol {
     }
     
     func getCountry(ccaTwo: String, completion: @escaping (Result<[Country], Error>) -> Void) {
-        
+        getCountryByCodeCalled = true
     }
     
     func getImage(from url: URL?, completion: @escaping (Result<UIImage, Error>) -> Void) {

@@ -20,14 +20,6 @@ struct Country: Decodable {
     let flag: Flag
     let maps: Maps
     
-    struct Maps: Codable {
-        let openStreetMaps: String?
-        
-        private enum CodingKeys: String, CodingKey {
-            case openStreetMaps = "openStreetMaps"
-        }
-    }
-    
     enum CodingKeys: String, CodingKey {
         case name
         case ccaTwo = "cca2"

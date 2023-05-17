@@ -37,6 +37,7 @@ struct Constants {
         static let flagHeightCoefficent = CGFloat(0.63)
         static let estimatedHeight = CGFloat(100)
         static var detailsCellHeight = CGFloat(60)
+        static let heightForHeaderInSection = CGFloat(30)
     }
     
     struct Numbers {

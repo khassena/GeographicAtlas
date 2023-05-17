@@ -1,23 +1,25 @@
 //
-//  GeographicAtlasTests.swift
+//  DetailsViewModelTest.swift
 //  GeographicAtlasTests
 //
-//  Created by Amanzhan Zharkynuly on 17.05.2023.
+//  Created by Amanzhan Zharkynuly on 18.05.2023.
 //
 
 import XCTest
+
 @testable import GeographicAtlas
 
-class CountriesViewModelTest: XCTestCase {
-    
-    var viewModel: CountriesViewModelProtocol!
+class DetailsViewModelTest: XCTestCase {
+
+    var viewModel: DetailsViewModelProtocol!
     var mockRepository: MockRepository!
     var mockNetworkTask: MockNetworkTask!
-
+    
     override func setUpWithError() throws {
         mockNetworkTask = MockNetworkTask()
         mockRepository = MockRepository(networkTask: mockNetworkTask)
-        viewModel = CountriesViewModel(repository: mockRepository)
+        let mockCcaTwoCode = "kz"
+        viewModel = DetailsViewModel(repository: mockRepository, ccaTwoCode: mockCcaTwoCode)
     }
 
     override func tearDownWithError() throws {
@@ -25,14 +27,13 @@ class CountriesViewModelTest: XCTestCase {
         mockRepository = nil
         mockNetworkTask = nil
     }
-    
+
     func testReloadImage() {
         // Given
         let url = URL(string: "https:")!
-        let indexPath = IndexPath(row: 0, section: 0)
         
         // When
-        viewModel.reloadImage(with: url, indexPath: indexPath)
+        viewModel.reloadImage(with: url)
         
         // Then
         XCTAssertEqual(mockNetworkTask.getImageURL, url)
@@ -40,15 +41,12 @@ class CountriesViewModelTest: XCTestCase {
     
     func testGetDataFromNetwork() {
         // Given
-        mockNetworkTask.getAllCountriesCalled = false
+        mockNetworkTask.getCountryByCodeCalled = false
         
         //When
-        
         viewModel.reloadData()
         
         // Then
-        XCTAssertTrue(mockNetworkTask.getAllCountriesCalled)
+        XCTAssertTrue(mockNetworkTask.getCountryByCodeCalled)
     }
-
-    
 }

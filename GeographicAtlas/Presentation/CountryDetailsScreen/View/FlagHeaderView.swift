@@ -21,7 +21,6 @@ class FlagHeaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        setupPosition()
     }
     
     required init(coder: NSCoder) {
@@ -38,8 +37,8 @@ class FlagHeaderView: UIView {
         addSubview(flagImageView)
         
         flagImageView.snp.makeConstraints { make in
-            make.leading.trailing.top.equalToSuperview().inset(16)
-            make.bottom.equalTo(-21)
+            make.leading.trailing.top.equalToSuperview().inset(Constants.insets)
+            make.bottom.equalTo(Constants.flagImageBottom)
         }
     }
 }
@@ -59,7 +58,7 @@ extension FlagHeaderView {
 
 private extension Constants {
     static let insets = CGFloat(16)
-    static let divider = CGFloat(1.7)
+    static let flagImageBottom = CGFloat(-21)
     static let imageSize = CGSize(width: 300, height: 200)
     static let skeletonImageColor = UIColor(red: 0.955, green: 0.955, blue: 0.965, alpha: 1)
 }

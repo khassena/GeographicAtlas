@@ -114,20 +114,9 @@ private extension DetailsSkeletonTableViewCell {
 private extension Constants {
     
     struct StackView {
-        static let zeroSpacer = CGFloat(0)
-        static let smallSpacing = CGFloat(4)
-        static let mediumSpacing = CGFloat(8)
         static let standardSpacing = CGFloat(16)
-        static let hugeSpacing = CGFloat(12)
-        static let largeSpacing = CGFloat(12)
     }
 
-    struct Image {
-        static let flagWidthDiv = CGFloat(4.18)
-        static let flagHeightDiv = CGFloat(1.7)
-        static let arrowTrailing = CGFloat(4.75)
-    }
-    
     struct ContentView {
         static let cornerRadius = CGFloat(12)
         static let insets = UIEdgeInsets(top: 6, left: 16, bottom: 6, right: 16)

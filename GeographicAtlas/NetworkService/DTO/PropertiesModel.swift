@@ -20,5 +20,7 @@ struct Currency: Decodable {
     let symbol: String?
 }
 
-
+struct Maps: Codable {
+    let openStreetMaps: String?
+}
 

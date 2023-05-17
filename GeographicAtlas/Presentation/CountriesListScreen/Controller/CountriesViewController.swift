@@ -74,7 +74,7 @@ extension CountriesViewController: UITableViewDelegate {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 7
+        return ContinentsModel.allCases.count
     }
     
     internal func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -96,7 +96,6 @@ extension CountriesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let headerView = view as? UITableViewHeaderFooterView {
-            
             headerView.contentView.preservesSuperviewLayoutMargins = false
             headerView.textLabel?.font = UIFont.regularBold
             headerView.textLabel?.textColor = Constants.Color.headerColor
@@ -104,7 +103,7 @@ extension CountriesViewController: UITableViewDelegate {
     }
     
     internal func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat(30)
+        return Constants.TableView.heightForHeaderInSection
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

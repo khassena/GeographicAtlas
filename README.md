@@ -77,7 +77,7 @@ iOS application that makes a request via an open API to get some data about coun
 <table>
     <thead>
         <tr>
-            <th>Skeleton View</th>
+            <th>Skeleton View (specially added 1 seconds for showing)</th>
             <th>Expanded Collapsed (No UI bugs)</th>
             <th>Image Caching</th>
         </tr>

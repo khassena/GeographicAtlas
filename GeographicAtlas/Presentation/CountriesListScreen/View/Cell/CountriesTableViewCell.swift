@@ -118,7 +118,7 @@ private extension CountriesTableViewCell {
         let titleLabel = UILabel()
         
         titleLabel.adjustsFontSizeToFitWidth = true
-        titleLabel.minimumScaleFactor = 0.5
+        titleLabel.minimumScaleFactor = Constants.Text.minimumScaleFactor
         titleLabel.font = UIFont.semiboldStandard
         titleLabel.textColor = Constants.Color.boldBlack
         
@@ -161,7 +161,7 @@ private extension CountriesTableViewCell {
         propertyValueLabel.font = UIFont.regularMedium
         propertyValueLabel.textColor = Constants.Color.black
         propertyValueLabel.adjustsFontSizeToFitWidth = true
-        propertyValueLabel.minimumScaleFactor = 0.5
+        propertyValueLabel.minimumScaleFactor = Constants.Text.minimumScaleFactor
         propertyValueLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         
         return propertyValueLabel
@@ -231,7 +231,7 @@ private extension CountriesTableViewCell {
             make.top.equalTo(collapsedStackView.snp.bottom).inset(Constants.StackView.expandedSpacing)
             make.left.right.equalTo(contentView).inset(Constants.StackView.standardSpacing)
             if UIDevice.current.userInterfaceIdiom == .pad {
-                make.height.equalTo(expandedStackView.snp.width).dividedBy(3.5)
+                make.height.equalTo(expandedStackView.snp.width).dividedBy(Constants.StackView.iPadHeightDiv)
             }
         }
         
@@ -261,10 +261,12 @@ private extension Constants {
         static let largeSpacing = CGFloat(12)
         static let collapsedHeightDiv = CGFloat(6.64)
         static var expandedSpacing = CGFloat(-14)
+        static let iPadHeightDiv = CGFloat(3.5)
     }
     
     struct Text {
         static let buttonText = "Learn more"
+        static let minimumScaleFactor = CGFloat(0.5)
     }
     
     struct Image {

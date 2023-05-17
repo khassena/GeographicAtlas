@@ -111,7 +111,7 @@ private extension DetailsTableViewCell {
         
         subtitleLabel.font = UIFont.regularLarge
         subtitleLabel.textColor = Constants.Color.boldBlack
-        subtitleLabel.numberOfLines = 6
+        subtitleLabel.numberOfLines = Constants.Text.numberOfLines
         
         return subtitleLabel
     }
@@ -182,7 +182,7 @@ private extension Constants {
     }
     
     struct Text {
-        
+        static let numberOfLines = Int(6)
     }
     
     struct Image {
