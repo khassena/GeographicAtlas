@@ -9,13 +9,7 @@
 
 ## Description
 
-Test task taken and modified from <a href="https://github.com/appKODE/trainee-test-ios">gitHub</a>
-
 iOS application that makes a request via an open API to get some data about countries.
-
-## Installation
-
-`pod install` and run `Coder.xcworkspace`
 
 ## Technologies
 
