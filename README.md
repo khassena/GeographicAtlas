@@ -35,14 +35,14 @@ iOS application that makes a request via an open API to get some data about coun
     <tbody>
         <tr>
             <td>
-                [Link][https://player.vimeo.com/video/827676630?h=baf870793a&badge=0&autopause=0&player_id=0&app_id=58479]
-            
+            <a href="https://player.vimeo.com/video/827676630?h=baf870793a&badge=0&autopause=0&player_id=0&app_id=58479">Link to Video</a>
             </td>
             <td>
-                [Link][https://player.vimeo.com/video/827683356?h=d7e9673007&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479]
+                        <a href="https://player.vimeo.com/video/827683356?h=d7e9673007&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479">Link to Video</a>
+    
             </td>
                         <td>
-                [Link][https://player.vimeo.com/video/827684877?h=25b5a483d3&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479]
+                        <a href="https://player.vimeo.com/video/827684877?h=25b5a483d3&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479">Link to Video</a>
             </td>
         </tr>
     </tbody>
@@ -59,13 +59,14 @@ iOS application that makes a request via an open API to get some data about coun
     <tbody>
         <tr>
             <td>
-                [][https://player.vimeo.com/video/827686430?h=223c741e2d&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479]
+                        <a href="https://player.vimeo.com/video/827686430?h=223c741e2d&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479">Link to Video</a>
             </td>
             <td>
-                <img width="250" src="Gifs/iPhone11pro.gif">
+                        <a href="https://player.vimeo.com/video/827689751?h=5a6c804ca5&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479">Link to Video</a>
             </td>
                         <td>
-                <img width="250" src="Gifs/iPhone14.gif">
+<!--                        <iframe title="vimeo-player" src="https://player.vimeo.com/video/827691610?h=eb26555d7c" width="640" height="360" frameborder="0"    allowfullscreen></iframe>-->
+                                        <a href="https://player.vimeo.com/video/827691610?h=eb26555d7c">Link to Video</a>
             </td>
         </tr>
     </tbody>
@@ -85,13 +86,14 @@ iOS application that makes a request via an open API to get some data about coun
     <tbody>
         <tr>
             <td>
-                <img width="250" src="Gifs/SkeletonView.gif">
+                                        <a href="https://player.vimeo.com/video/827692599?h=4e496ee8e5">Link to Video</a>
             </td>
             <td>
-                <img width="250" src="Gifs/expanded,collapsed.gif">
+                   <a href="https://youtube.com/shorts/ThtzuTBJ4_g">Link to Video</a>
             </td>
             <td>
-                <img width="250" src="Gifs/imageCaching.gif">
+                               <a href="https://youtube.com/shorts/n0lmp5kz5NQ">Link to Video</a>
+                
             </td>
         </tr>
     </tbody>
@@ -107,10 +109,11 @@ iOS application that makes a request via an open API to get some data about coun
     <tbody>
         <tr>
             <td>
-                <img width="250" src="Gifs/coordinates.gif">
+                                           <a href="https://youtube.com/shorts/ktBeWz9r2Lk">Link to Video</a>
+                
             </td>
             <td>
-                <img width="250" src="Gifs/iPadPro.gif">
+                                                           <a href="https://youtube.com/shorts/rduzPptxSkE">Link to Video</a>
             </td>
         </tr>
     </tbody>
