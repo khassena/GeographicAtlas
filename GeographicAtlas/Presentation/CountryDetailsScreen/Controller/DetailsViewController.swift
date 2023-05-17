@@ -49,6 +49,7 @@ class DetailsViewController: UIViewController {
         setTableView()
         bindToViewModel()
         skeletonViews = createSkeletonCells()
+        setFonts()
     }
 
 }
@@ -97,7 +98,7 @@ extension DetailsViewController: UITableViewDataSource {
             withHorizontalFittingPriority: .required,
             verticalFittingPriority: .defaultLow
         ).height + Constants.TableView.countryCellMargins
-        let tempHeight = skeletonBool ? 60 : height
+        let tempHeight = skeletonBool ? Constants.TableView.detailsCellHeight : height
         return tempHeight
     }
     
@@ -144,6 +145,24 @@ private extension DetailsViewController {
         }
         
         return skeletonCells
+    }
+    
+    func setFonts() {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            UIFont.regularThin = UIFont(name: "SFProText-Regular", size: 33)
+            UIFont.regularMedium = UIFont(name: "SFProText-Regular", size: 35)
+            UIFont.semiboldStandard = UIFont(name: "SFProText-Regular", size: 37)
+            UIFont.regularLarge = UIFont(name: "SFProText-Regular", size: 40)
+            UIFont.regularBold = UIFont(name: "SFProText-Regular", size: 45)
+            Constants.TableView.detailsCellHeight = CGFloat(200)
+            
+        } else {
+            UIFont.regularThin = UIFont(name: "SFProText-Regular", size: 13)
+            UIFont.regularMedium = UIFont(name: "SFProText-Regular", size: 15)
+            UIFont.semiboldStandard = UIFont(name: "SFProText-Semibold", size: 17)
+            UIFont.regularLarge = UIFont(name: "SFProText-Regular", size: 20)
+            UIFont.regularBold = UIFont(name: "SFProText-Bold", size: 15)
+        }
     }
 }
 

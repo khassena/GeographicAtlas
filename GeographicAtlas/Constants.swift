@@ -36,6 +36,7 @@ struct Constants {
         static let animationDuration = CGFloat(0.3)
         static let flagHeightCoefficent = CGFloat(0.63)
         static let estimatedHeight = CGFloat(100)
+        static var detailsCellHeight = CGFloat(60)
     }
     
     struct Numbers {

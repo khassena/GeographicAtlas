@@ -51,7 +51,7 @@ class CountriesViewController: UIViewController {
         setTableView()
         bindToViewModel()
         skeletonViews = createSkeletonCells()
-        
+        setFonts()
     }
 }
 
@@ -146,6 +146,8 @@ extension CountriesViewController: UITableViewDataSource {
               let flagImageURL = URL(string: country.flagUrl)
                else { return UITableViewCell() }
         cell.delegate = self
+        collapsedCell.configureCell(country)
+        expandedCell.configureCell(country)
         cell.configureCell(country)
         viewModel.reloadImage(with: flagImageURL, indexPath: indexPath)
 
@@ -212,6 +214,22 @@ private extension CountriesViewController {
         }
         
         return skeletonCells
+    }
+    
+    func setFonts() {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            UIFont.regularThin = UIFont(name: "SFProText-Regular", size: 23)
+            UIFont.regularMedium = UIFont(name: "SFProText-Regular", size: 25)
+            UIFont.semiboldStandard = UIFont(name: "SFProText-Regular", size: 27)
+            UIFont.regularLarge = UIFont(name: "SFProText-Regular", size: 30)
+            UIFont.regularBold = UIFont(name: "SFProText-Regular", size: 35)
+        } else {
+            UIFont.regularThin = UIFont(name: "SFProText-Regular", size: 13)
+            UIFont.regularMedium = UIFont(name: "SFProText-Regular", size: 15)
+            UIFont.semiboldStandard = UIFont(name: "SFProText-Semibold", size: 17)
+            UIFont.regularLarge = UIFont(name: "SFProText-Regular", size: 20)
+            UIFont.regularBold = UIFont(name: "SFProText-Bold", size: 15)
+        }
     }
 }
 

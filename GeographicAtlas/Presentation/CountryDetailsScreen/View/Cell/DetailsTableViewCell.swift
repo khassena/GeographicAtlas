@@ -111,7 +111,7 @@ private extension DetailsTableViewCell {
         
         subtitleLabel.font = UIFont.regularLarge
         subtitleLabel.textColor = Constants.Color.boldBlack
-        subtitleLabel.numberOfLines = 2
+        subtitleLabel.numberOfLines = 6
         
         return subtitleLabel
     }

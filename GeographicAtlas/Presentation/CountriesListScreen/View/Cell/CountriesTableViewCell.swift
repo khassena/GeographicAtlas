@@ -230,6 +230,9 @@ private extension CountriesTableViewCell {
         expandedStackView.snp.makeConstraints { make in
             make.top.equalTo(collapsedStackView.snp.bottom).inset(Constants.StackView.expandedSpacing)
             make.left.right.equalTo(contentView).inset(Constants.StackView.standardSpacing)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                make.height.equalTo(expandedStackView.snp.width).dividedBy(3.5)
+            }
         }
         
         expandedStackView.snp.prepareConstraints { make in
