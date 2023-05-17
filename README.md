@@ -4,8 +4,8 @@
 
 1. [Description](#description)
 2. [App](#app)
-3. [Features](#features)
-4. [Advanced Features](#installation)
+3. [Features](#app)
+4. [Advanced Features](#advancedfeatures)
 
 ## Description
 
@@ -127,5 +127,5 @@ iOS application that makes a request via an open API to get some data about coun
 5. Follow any of the architectures (MVC, MVVM, VIPER etc.) - Done 
 6. Basic Unit Testing - Done
 7. Safe code, no crushes - Done
-8. “Capital coordinates” latitude + longitude value tapping and opening the link - Done
+8. “Capital coordinates” latitude + longitude value tappable - Done
 9. Pushes feature - Not yet
