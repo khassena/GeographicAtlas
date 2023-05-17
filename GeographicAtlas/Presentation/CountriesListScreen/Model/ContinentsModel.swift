@@ -15,10 +15,6 @@ enum ContinentsModel {
     case northAmerica
     case southAmerica
     case antarctica
-    
-//    struct CountryData {
-//        var country: [CountriesListData]
-//    }
 }
 
 extension ContinentsModel {

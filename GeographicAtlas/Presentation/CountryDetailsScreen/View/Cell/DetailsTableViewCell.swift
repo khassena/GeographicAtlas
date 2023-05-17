@@ -73,7 +73,7 @@ extension DetailsTableViewCell {
             propertyName.text = "Timezones:"
             propertyValue.text = value
         default:
-            print("error")
+            print("Element Not Found in cell")
         }
     }
 }

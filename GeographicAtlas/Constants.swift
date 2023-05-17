@@ -25,18 +25,30 @@ struct Constants {
         static let imageCornerRadius = CGFloat(12)
     }
     
+    struct Country {
+        static let countryPropertiesCount = Int(7)
+    }
+    
     struct TableView {
         static let heightDivision = CGFloat(4.46428571)
         static let expandedMardins = CGFloat(24)
+        static let countryCellMargins = CGFloat(12)
         static let animationDuration = CGFloat(0.3)
+        static let flagHeightCoefficent = CGFloat(0.63)
+        static let estimatedHeight = CGFloat(100)
     }
     
     struct Numbers {
         static let millionCGFloat = CGFloat(1_000_000)
         static let millionInt = Int(1000000)
+        static let one = Int(1)
         static let three = Int(3)
         static let thousand = CGFloat(1000)
         static let rotationNum = CGFloat(-0.999)
+    }
+    
+    struct Images {
+        static let backIcon = UIImage(named: "backIcon")
     }
     
 }

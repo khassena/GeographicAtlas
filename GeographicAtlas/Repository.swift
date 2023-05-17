@@ -13,7 +13,7 @@ protocol RepositoryProtocol {
     var networkTask: NetworkTaskProtocol? { get set }
     func countriesListDataToSections(_ countriesList: [CountriesList]) -> [[CountriesListData]]?
     func countriesListElementToCell(_ countriesList: CountriesList) -> CountriesListData
-    func countryDetailDataToTransfer(_ countryDetail: [Country]) -> [String]
+    func countryDetailDataToTransfer(_ countryDetail: [Country]) -> ([String], (String, String))
 }
 
 class Repository: RepositoryProtocol {
@@ -70,12 +70,12 @@ extension Repository {
         return [europe, asia, africa, oceania, southAmerica, northAmerica, antarctica]
     }
     
-    func countryDetailDataToTransfer(_ countryDetail: [Country]) -> [String] {
+    func countryDetailDataToTransfer(_ countryDetail: [Country]) -> ([String], (String, String)) {
         
-        guard let country = countryDetail.first else { return [""] }
+        guard let country = countryDetail.first else { return ([""],("", "")) }
         
         let data = countryDetailToCell(country)
-        return [data.subRegion, data.capitalCity, data.capitalCoordinates, data.population, data.area, data.currency, data.timezone, data.countryName, data.flagUrl]
+        return ([data.subRegion, data.capitalCity, data.capitalCoordinates, data.population, data.area, data.currency, data.timezone], (data.countryName, data.flagUrl))
     }
     
     func countriesListElementToCell(_ countriesList: CountriesList) -> CountriesListData {
@@ -100,7 +100,7 @@ private extension Repository {
         
         return CountriesListData(
             countryName: countriesList.name.common,
-            capitalCity: countriesList.capital?.first ?? "nil",
+            capitalCity: countriesList.capital?.first ?? "There is no Capital City",
             flagUrl: countriesList.flag.png,
             population: populationString,
             area: areaString,
@@ -120,8 +120,8 @@ private extension Repository {
         
         return DetailsModel(
             countryName: country.name.common,
-            capitalCity: country.capital?.first ?? "nil",
-            subRegion: country.subRegion ?? "nil",
+            capitalCity: country.capital?.first ?? "There is no Capital City",
+            subRegion: country.subRegion ?? "There is no Region",
             flagUrl: country.flag.png,
             population: populationString,
             capitalCoordinates: coordinates,
@@ -131,37 +131,6 @@ private extension Repository {
         )
         
     }
-    
-//    func distributeContinentsToSections(_ countriesListData: CountriesListData) -> [[CountriesListData]]? {
-//        var europe = [CountriesListData]()
-//        var asia = [CountriesListData]()
-//        var africa = [CountriesListData]()
-//        var oceania = [CountriesListData]()
-//        var southAmerica = [CountriesListData]()
-//        var northAmerica = [CountriesListData]()
-//        var antarctica = [CountriesListData]()
-//
-//        switch countriesListData.continent.first {
-//        case .europe:
-//             europe.append(countriesListData)
-//        case .asia:
-//            asia.append(countriesListData)
-//        case .africa:
-//            africa.append(countriesListData)
-//        case .oceania:
-//            oceania.append(countriesListData)
-//        case .southAmerica:
-//            southAmerica.append(countriesListData)
-//        case .antarctica:
-//            antarctica.append(countriesListData)
-//        case .northAmerica:
-//            northAmerica.append(countriesListData)
-//        case .none:
-//            print("Error")
-//        }
-//
-//        return [europe, asia, africa, oceania, southAmerica, northAmerica, antarctica]
-//    }
     
     func convertPopulationToString(_ population: Int) -> String {
         

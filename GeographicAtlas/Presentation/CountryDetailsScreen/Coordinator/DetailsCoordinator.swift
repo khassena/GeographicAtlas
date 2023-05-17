@@ -39,6 +39,7 @@ final class DetailsCoordinator: Coordinator {
     }
     
     override func finish() {
+        rootNavigationController.popViewController(animated: true)
         delegate?.didFinish(from: self)
     }
 }

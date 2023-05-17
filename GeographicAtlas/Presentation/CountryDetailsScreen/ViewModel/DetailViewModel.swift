@@ -11,8 +11,9 @@ protocol DetailsViewModelProtocol {
     init(repository: RepositoryProtocol, ccaTwoCode: String)
     
     var countryProperties: [String]? { get set }
+    var countryNameAndFlag: (String, String)? { get set }
     
-    var didRecieveData: (([String]) -> Void)? { get set }
+    var didRecieveData: (([String], String) -> Void)? { get set }
     var didRecieveImage: ((UIImage) -> Void)? { get set }
     
     func reloadData()
@@ -34,8 +35,9 @@ class DetailsViewModel: DetailsViewModelProtocol {
     private let ccaTwoCode: String
     
     var countryProperties: [String]?
+    var countryNameAndFlag: (String, String)?
     
-    var didRecieveData: (([String]) -> Void)?
+    var didRecieveData: (([String], String) -> Void)?
     var didRecieveImage: ((UIImage) -> Void)?
     
     required init(repository: RepositoryProtocol, ccaTwoCode: String) {
@@ -70,9 +72,9 @@ private extension DetailsViewModel {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let countryDetail):
-                    self.countryProperties = self.repository.countryDetailDataToTransfer(countryDetail)
-                    self.didRecieveData?(self.countryProperties ?? [""])
-                    guard let imageUrl = URL(string: self.countryProperties?.last ?? "") else { return }
+                    (self.countryProperties, self.countryNameAndFlag) = self.repository.countryDetailDataToTransfer(countryDetail)
+                    self.didRecieveData?(self.countryProperties ?? [""], self.countryNameAndFlag?.0 ?? "")
+                    guard let imageUrl = URL(string: self.countryNameAndFlag?.1 ?? "") else { return }
                     self.reloadImage(with: imageUrl)
                 case .failure(let error):
                     print(error)

@@ -21,7 +21,7 @@ final class AppCoordinator: Coordinator {
         navigationController.navigationBar.standardAppearance = appearance
         navigationController.navigationBar.scrollEdgeAppearance = appearance
         navigationController.navigationBar.compactAppearance = appearance
-        
+
         return navigationController
     }()
     

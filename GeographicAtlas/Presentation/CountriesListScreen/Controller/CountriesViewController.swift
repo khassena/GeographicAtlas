@@ -26,6 +26,7 @@ class CountriesViewController: UIViewController {
         return cell
     }()
     private var countries: [[CountriesListData]]?
+    private var skeletonViews: [CountriesSkeletonTableViewCell]?
     
     // MARK: - Initialization
     
@@ -45,19 +46,20 @@ class CountriesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.backButtonTitle = ""
         rootView.setup()
         setTableView()
         bindToViewModel()
+        skeletonViews = createSkeletonCells()
         
     }
-
 }
 
 // MARK: - UITableViewDelegate
 
 extension CountriesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+        guard let _ = self.countries else { return skeletonViews?.count ?? 0 }
         switch section {
         case 0: return self.countries?[0].count ?? 0
         case 1: return self.countries?[1].count ?? 0
@@ -67,9 +69,8 @@ extension CountriesViewController: UITableViewDelegate {
         case 5: return self.countries?[5].count ?? 0
         case 6: return self.countries?[6].count ?? 0
         default:
-            return 0
+            return skeletonViews?.count ?? 0
         }
-        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -77,6 +78,8 @@ extension CountriesViewController: UITableViewDelegate {
     }
     
     internal func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        guard let _ = self.countries else { return " " }
         
         switch section {
         case 0: return ContinentsModel.europe.name
@@ -130,6 +133,14 @@ extension CountriesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        guard let _ = self.countries else {
+            if let skeletonCell = skeletonViews?[indexPath.row] {
+                return skeletonCell
+            } else {
+                return UITableViewCell()
+            }
+        }
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CountriesTableViewCell.cellId, for: indexPath) as? CountriesTableViewCell,
               let country = self.countries?[indexPath.section][indexPath.row],
               let flagImageURL = URL(string: country.flagUrl)
@@ -137,12 +148,11 @@ extension CountriesViewController: UITableViewDataSource {
         cell.delegate = self
         cell.configureCell(country)
         viewModel.reloadImage(with: flagImageURL, indexPath: indexPath)
-        
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let height = tableView.frame.width / Constants.TableView.heightDivision
         
         let isSelected = tableView.indexPathsForSelectedRows?.contains(indexPath) ?? false
         let expandedHeight = expandedCell.systemLayoutSizeFitting(
@@ -191,6 +201,17 @@ private extension CountriesViewController {
             }
             
         }
+    }
+    
+    func createSkeletonCells() -> [CountriesSkeletonTableViewCell] {
+        var skeletonCells: [CountriesSkeletonTableViewCell] = []
+        
+        for _ in 0..<10 {
+            let cell = CountriesSkeletonTableViewCell(style: .default, reuseIdentifier: nil)
+            skeletonCells.append(cell)
+        }
+        
+        return skeletonCells
     }
 }
 

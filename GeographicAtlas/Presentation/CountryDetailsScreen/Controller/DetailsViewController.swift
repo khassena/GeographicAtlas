@@ -21,6 +21,7 @@ class DetailsViewController: UIViewController {
     }()
     var flagHeaderView: FlagHeaderView?
     var countryDetails: [String]?
+    
     // MARK: - Initialization
     
     init(viewModel: DetailsViewModelProtocol) {
@@ -50,23 +51,15 @@ class DetailsViewController: UIViewController {
 
 extension DetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return self.countryDetails?.count ?? 0
+        guard let _ = countryDetails else { return .zero }
+        return Constants.Country.countryPropertiesCount
         
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return Constants.Numbers.one
     }
     
-//    internal func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return CGFloat(67)
-//    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let cell = tableView.cellForRow(at: indexPath) as? CountriesTableViewCell
-        
-    }
 }
 
 // MARK: - UITableViewDataSource
@@ -89,14 +82,8 @@ extension DetailsViewController: UITableViewDataSource {
             CGSize(width: tableView.frame.width, height: .zero),
                         withHorizontalFittingPriority: .required,
                         verticalFittingPriority: .defaultLow
-        ).height + 12
+        ).height + Constants.TableView.countryCellMargins
         return height
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let insets = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
-        view.layoutMargins = insets
-        view.preservesSuperviewLayoutMargins = true
     }
     
 }
@@ -109,16 +96,18 @@ private extension DetailsViewController {
         rootView.detailsTableView.delegate = self
         rootView.detailsTableView.dataSource = self
         rootView.detailsTableView.register(DetailsTableViewCell.self, forCellReuseIdentifier: DetailsTableViewCell.cellId)
-        flagHeaderView = FlagHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: UIScreen.main.bounds.width * 0.63 ))
+        flagHeaderView = FlagHeaderView(frame: CGRect(x: .zero, y: .zero, width: self.view.frame.width, height: UIScreen.main.bounds.width * Constants.TableView.flagHeightCoefficent ))
         rootView.detailsTableView.tableHeaderView = flagHeaderView
         rootView.detailsTableView.rowHeight = UITableView.automaticDimension
-        rootView.detailsTableView.estimatedRowHeight = 100
+        rootView.detailsTableView.estimatedRowHeight = Constants.TableView.estimatedHeight
+        
     }
     
     func bindToViewModel() {
-        viewModel.didRecieveData = { [weak self] country in
+        viewModel.didRecieveData = { [weak self] (country, countryName) in
             DispatchQueue.main.async {
                 self?.countryDetails = country
+                self?.title = countryName
                 self?.rootView.detailsTableView.reloadData()
             }
         }
@@ -126,7 +115,6 @@ private extension DetailsViewController {
         viewModel.didRecieveImage = { [weak self] image in
             DispatchQueue.main.async {
                 self?.flagHeaderView?.flagImageView.image = image
-                self?.flagHeaderView?.flagImageView.layer.cornerRadius = 10
             }
         }
     }
