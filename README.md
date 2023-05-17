@@ -4,8 +4,8 @@
 
 1. [Description](#description)
 2. [App](#app)
-3. [Features](#app)
-4. [Advanced Features](#advancedfeatures)
+3. [Advanced Features](#advanced-features)
+4. [Advanced Features(2)](#advanced-features[2])
 
 ## Description
 
@@ -118,7 +118,7 @@ iOS application that makes a request via an open API to get some data about coun
 </tbody>
 </table>
 
-## Advanced Features
+## Advanced Features[2]
 
 1. UI look and feel good for all the screen sizes including iPads - Done
 2. expand/collapse feature for CountriesList animated, with no UI bugs - Done
