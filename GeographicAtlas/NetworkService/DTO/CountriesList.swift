@@ -7,11 +7,6 @@
 
 import Foundation
 
-protocol CurrencyProtocol: Decodable {
-    var name: String? { get }
-    var symbol: String? { get }
-}
-
 struct CountriesList: Decodable {
     let name: Name
     let ccaTwo: String
@@ -55,4 +50,3 @@ struct CountriesList: Decodable {
         continent = try values.decode([Continents].self, forKey: .continent)
     }
 }
-

@@ -155,7 +155,7 @@ extension DetailsViewController: DetailsTableViewCellDelegate {
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
-        let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+        let okAction = UIAlertAction(title: "OK", style: .default) {  _ in
             guard let urlString = map, let url = URL(string: urlString) else {
                 return
             }
