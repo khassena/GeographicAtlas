@@ -31,21 +31,21 @@ iOS application that makes a request via an open API to get some data about coun
             <th>Learn More Button</th>
             <th>Country Details Screen</th>
         </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-            <a href="https://player.vimeo.com/video/827676630?h=baf870793a&badge=0&autopause=0&player_id=0&app_id=58479">Link to Video</a>
-            </td>
-            <td>
-                        <a href="https://player.vimeo.com/video/827683356?h=d7e9673007&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479">Link to Video</a>
-    
-            </td>
-                        <td>
-                        <a href="https://player.vimeo.com/video/827684877?h=25b5a483d3&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479">Link to Video</a>
-            </td>
-        </tr>
-    </tbody>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://player.vimeo.com/video/827676630?h=baf870793a&badge=0&autopause=0&player_id=0&app_id=58479">Link to Video</a>
+</td>
+<td>
+<a href="https://player.vimeo.com/video/827683356?h=d7e9673007&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479">Link to Video</a>
+
+</td>
+<td>
+<a href="https://player.vimeo.com/video/827684877?h=25b5a483d3&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479">Link to Video</a>
+</td>
+</tr>
+</tbody>
 </table>
 
 <table>
@@ -53,23 +53,22 @@ iOS application that makes a request via an open API to get some data about coun
         <tr>
             <th>iPhone 8</th>
             <th>iPhone 11 Pro</th>
-            <th>iPhone 14</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                        <a href="https://player.vimeo.com/video/827686430?h=223c741e2d&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479">Link to Video</a>
-            </td>
-            <td>
-                        <a href="https://player.vimeo.com/video/827689751?h=5a6c804ca5&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479">Link to Video</a>
-            </td>
-                        <td>
-<!--                        <iframe title="vimeo-player" src="https://player.vimeo.com/video/827691610?h=eb26555d7c" width="640" height="360" frameborder="0"    allowfullscreen></iframe>-->
-                                        <a href="https://player.vimeo.com/video/827691610?h=eb26555d7c">Link to Video</a>
-            </td>
-        </tr>
-    </tbody>
+<th>iPhone 14</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://player.vimeo.com/video/827686430?h=223c741e2d&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479">Link to Video</a>
+</td>
+<td>
+<a href="https://player.vimeo.com/video/827689751?h=5a6c804ca5&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479">Link to Video</a>
+</td>
+<td>
+<a href="https://player.vimeo.com/video/827691610?h=eb26555d7c">Link to Video</a>
+</td>
+</tr>
+</tbody>
 </table>
 
 
@@ -83,20 +82,20 @@ iOS application that makes a request via an open API to get some data about coun
             <th>Image Caching</th>
         </tr>
     </thead>
-    <tbody>
-        <tr>
-            <td>
-                                        <a href="https://player.vimeo.com/video/827692599?h=4e496ee8e5">Link to Video</a>
-            </td>
-            <td>
-                   <a href="https://youtube.com/shorts/ThtzuTBJ4_g">Link to Video</a>
-            </td>
-            <td>
-                               <a href="https://youtube.com/shorts/n0lmp5kz5NQ">Link to Video</a>
-                
-            </td>
-        </tr>
-    </tbody>
+<tbody>
+<tr>
+<td>
+<a href="https://player.vimeo.com/video/827692599?h=4e496ee8e5">Link to Video</a>
+</td>
+<td>
+<a href="https://youtube.com/shorts/ThtzuTBJ4_g">Link to Video</a>
+</td>
+<td>
+<a href="https://youtube.com/shorts/n0lmp5kz5NQ">Link to Video</a>
+
+</td>
+</tr>
+</tbody>
 </table>
 
 <table>
@@ -106,17 +105,17 @@ iOS application that makes a request via an open API to get some data about coun
             <th>iPad Pro</th>
         </tr>
     </thead>
-    <tbody>
-        <tr>
-            <td>
-                                           <a href="https://youtube.com/shorts/ktBeWz9r2Lk">Link to Video</a>
-                
-            </td>
-            <td>
-                                                           <a href="https://youtube.com/shorts/rduzPptxSkE">Link to Video</a>
-            </td>
-        </tr>
-    </tbody>
+<tbody>
+<tr>
+<td>
+<a href="https://youtube.com/shorts/ktBeWz9r2Lk">Link to Video</a>
+
+</td>
+<td>
+<a href="https://youtube.com/shorts/rduzPptxSkE">Link to Video</a>
+</td>
+</tr>
+</tbody>
 </table>
 
 ## Advanced Features
